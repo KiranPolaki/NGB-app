@@ -100,14 +100,14 @@ export default function SettingsScreen() {
             size={scale(20)}
             color={theme.dark ? "#fff" : "#005DE0"}
           />
-        <Text
-          style={{
-            color: theme.dark ? "#fff" : "#005DE0",
-            fontSize: fontSizes.FONT20,
-          }}
-        >
-          Back
-        </Text>
+          <Text
+            style={{
+              color: theme.dark ? "#fff" : "#005DE0",
+              fontSize: fontSizes.FONT20,
+            }}
+          >
+            Back
+          </Text>
         </Pressable>
         <Text
           style={{

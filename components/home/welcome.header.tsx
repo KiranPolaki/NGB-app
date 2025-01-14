@@ -29,12 +29,10 @@ export default function WelcomeHeader() {
   return (
     <LinearGradient
       colors={
-        theme.dark
-          ? ["#3c43485c", "#3c43485c", "#3c43485c"]
-          : ["#75ABFC", "#0047AB"]
+        theme.dark ? ["#262626", "#262626", "#262626"] : ["#75ABFC", "#0047AB"]
       }
-      start={theme.dark ? { x: 1, y: 1 } : { x: 1, y: 1 }}
-      end={theme.dark ? { x: 0, y: 1 } : { x: 0, y: 1 }}
+      start={theme.dark ? { x: 0.5, y: 0 } : { x: 0.5, y: 0 }}
+      end={theme.dark ? { x: 0.5, y: 1 } : { x: 0.5, y: 1 }}
       style={[styles.headerWrapper]}
     >
       <StatusBar barStyle={"light-content"} />
@@ -54,6 +52,7 @@ export default function WelcomeHeader() {
             style={{
               fontSize: fontSizes.FONT32,
               color: "#fff",
+              fontWeight: 800,
               fontFamily: "Poppins_600SemiBold",
             }}
           >
@@ -64,11 +63,11 @@ export default function WelcomeHeader() {
           <Text
             style={{
               fontSize: fontSizes.FONT22,
-              color: "#fff",
+              color: "#FFFFFFBF",
               fontFamily: "Poppins_400Regular",
             }}
           >
-            Let's start Learning
+            Explore Life Changing Courses
           </Text>
         </View>
         <View style={{ flexDirection: "row" }}>
@@ -77,9 +76,11 @@ export default function WelcomeHeader() {
               style={[
                 styles.notificationWrapper,
                 {
-                  backgroundColor: theme.dark ? "transparent" : "#004FAB",
-                  borderWidth: theme?.dark ? 1 : 0,
-                  borderColor: theme.dark ? "#fff" : "transparent",
+                  backgroundColor: theme.dark
+                    ? "rgba(255, 255, 255, 0.2)"
+                    : "#004FAB",
+                  // borderWidth: theme?.dark ? 1 : 0,
+                  // borderColor: theme.dark ? "#fff" : "transparent",
                 },
               ]}
             >
@@ -108,13 +109,13 @@ export default function WelcomeHeader() {
       </View>
       <View style={{ position: "relative" }}>
         <TextInput
-          placeholder="Search for Topics,Courses"
+          placeholder="Search for Topics, Courses"
           style={[
             styles.input,
             {
-              backgroundColor: theme.dark ? "transparent" : "#fff",
-              borderWidth: theme.dark ? 1 : 0,
-              borderColor: theme.dark ? "#fff" : "",
+              backgroundColor: theme.dark ? "rgba(255, 255, 255, 0.2)" : "#fff",
+              // borderWidth: theme.dark ? 1 : 0,
+              // borderColor: theme.dark ? "#fff" : "",
               color: theme?.dark ? "#fff" : "#000",
             },
           ]}
@@ -130,7 +131,7 @@ export default function WelcomeHeader() {
           <EvilIcons
             name="search"
             size={IsIPAD ? scale(20) : scale(30)}
-            color={theme.dark ? "#fff" : "blue"}
+            color={theme.dark ? "#95dd22" : "blue"}
           />
         </Pressable>
       </View>
@@ -156,14 +157,14 @@ const styles = StyleSheet.create({
     position: "relative",
     width: scale(45),
     height: scale(45),
-    borderRadius: scale(10),
+    borderRadius: scale(50),
     alignItems: "center",
     justifyContent: "center",
   },
   dot: {
     width: scale(13),
     height: scale(13),
-    backgroundColor: "#19C964",
+    backgroundColor: "#95dd22",
     borderRadius: scale(100),
     alignItems: "center",
     justifyContent: "center",

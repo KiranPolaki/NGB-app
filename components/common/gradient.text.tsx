@@ -18,7 +18,7 @@ export default function GradiantText({
       }
     >
       <LinearGradient
-        colors={["#6D55FE", "#8976FC"]}
+        colors={["#95dd22", "#aae34f", "#bce973"]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
       >

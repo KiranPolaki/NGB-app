@@ -3,16 +3,62 @@ import React from "react";
 import Swiper from "react-native-swiper";
 import * as WebBrowser from "expo-web-browser";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
-import { IsIPAD } from "@/themes/app.constant";
+import {
+  fontSizes,
+  IsIPAD,
+  windowHeight,
+  windowWidth,
+} from "@/themes/app.constant";
 import { bannerData } from "@/configs/constants";
+import GradiantText from "../common/gradient.text";
 
-export default function HomeBanner() {
+export default function HomeBanner({ theme }: { theme: boolean }) {
   const handlePress = async (item: string) => {
     await WebBrowser.openBrowserAsync(item);
   };
 
   return (
     <View style={styles.container}>
+      {/* <View
+        style={{
+          marginHorizontal: windowWidth(20),
+          marginTop: verticalScale(0),
+          marginBottom: verticalScale(10),
+        }}
+      >
+        <View style={{ flexDirection: "row", marginTop: windowHeight(5) }}>
+          <Text
+            style={{
+              fontSize: fontSizes.FONT35,
+              fontFamily: "Poppins_500Medium",
+              fontWeight: 600,
+              color: theme ? "#fff" : "#000",
+            }}
+          >
+            Free Courses
+          </Text>
+        </View>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View
+            style={{
+              backgroundColor: "#12BB70",
+              width: windowWidth(15),
+              height: windowWidth(15),
+              borderRadius: 100,
+            }}
+          />
+          <Text
+            style={{
+              fontFamily: "Poppins_400Regular",
+              fontSize: fontSizes.FONT18,
+              paddingLeft: windowWidth(5),
+              color: theme ? "#FFFFFFBF" : "#000",
+            }}
+          >
+            Demo classes here
+          </Text>
+        </View>
+      </View> */}
       <Swiper
         dotStyle={styles.dot}
         activeDotStyle={styles.activeDot}
@@ -55,7 +101,7 @@ const styles = StyleSheet.create({
     marginHorizontal: verticalScale(3),
   },
   activeDot: {
-    backgroundColor: "#2467EC",
+    backgroundColor: "#95dd22",
     width: scale(8),
     height: scale(8),
     borderRadius: scale(5),

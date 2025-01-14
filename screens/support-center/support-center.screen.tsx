@@ -150,7 +150,7 @@ export default function SupportCenterScreen() {
             flexDirection: "row",
             gap: scale(10),
           }}
-            onPress={() => router.push("/(routes)/faq")}
+          onPress={() => router.push("/(routes)/faq")}
         >
           <IconTwo />
           <View>

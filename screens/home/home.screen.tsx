@@ -17,7 +17,7 @@ export default function HomeScreen() {
     <>
       <LinearGradient
         colors={
-          theme.dark ? ["#180D41", "#2A2D32", "#131313"] : ["#fff", "#f7f7f7"]
+          theme.dark ? ["#30400d", "#2A2D32", "#131313"] : ["#fff", "#f7f7f7"]
         }
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
@@ -27,8 +27,9 @@ export default function HomeScreen() {
         }}
       >
         <WelcomeHeader />
+
         <ScrollView showsVerticalScrollIndicator={false}>
-          <HomeBanner />
+          <HomeBanner theme={theme.dark} />
           <View
             style={{
               marginHorizontal: windowWidth(20),
@@ -40,6 +41,7 @@ export default function HomeScreen() {
                 style={{
                   fontSize: fontSizes.FONT35,
                   fontFamily: "Poppins_500Medium",
+                  fontWeight: 600,
                   color: theme.dark ? "#fff" : "#000",
                 }}
               >
@@ -51,27 +53,21 @@ export default function HomeScreen() {
                   fontSize: fontSizes.FONT35,
                   fontFamily: "Poppins_500Medium",
                   paddingLeft: scale(5),
+                  fontWeight: 600,
                 }}
               />
             </View>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <View
-                style={{
-                  backgroundColor: "#12BB70",
-                  width: windowWidth(15),
-                  height: windowWidth(15),
-                  borderRadius: 100,
-                }}
-              />
+              <Text>🔥</Text>
               <Text
                 style={{
                   fontFamily: "Poppins_400Regular",
                   fontSize: fontSizes.FONT18,
                   paddingLeft: windowWidth(5),
-                  color: theme.dark ? "#fff" : "#000",
+                  color: theme.dark ? "#FFFFFFBF" : "#000",
                 }}
               >
-                our comprehensive project based courses
+                Our result based exercise courses
               </Text>
             </View>
           </View>

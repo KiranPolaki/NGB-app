@@ -20,8 +20,9 @@ export default function CoursesScreen() {
         backgroundColor: theme.dark ? "#131313" : "#fff",
       }}
     >
-      <ScrollView showsVerticalScrollIndicator={false}
-       style={{marginTop: verticalScale(-35)}}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ marginTop: verticalScale(-35) }}
       >
         <StatusBar barStyle={!theme.dark ? "dark-content" : "light-content"} />
         <View style={{ marginHorizontal: windowWidth(20) }}>
@@ -47,7 +48,7 @@ export default function CoursesScreen() {
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <View
               style={{
-                backgroundColor: "#12BB70",
+                backgroundColor: "#bce973",
                 width: windowWidth(15),
                 height: windowWidth(15),
                 borderRadius: 100,

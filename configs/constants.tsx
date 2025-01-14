@@ -8,7 +8,7 @@ import Three from "@/assets/images/onboarding/3.jpg";
 
 export const onBoardingSlides: onBoardingSlidesTypes[] = [
   {
-    color: "#0D47A1", // Deep navy blue
+    color: "#95dd22", // Deep navy blue
     title: "Explore",
     image: (
       <Image
@@ -24,7 +24,7 @@ export const onBoardingSlides: onBoardingSlidesTypes[] = [
       "Find the perfect course to enhance your career prospects and skill set",
   },
   {
-    color: "#1976D2", // Medium electric blue
+    color: "#aae34f", // Medium electric blue
     title: "Set Your",
     image: (
       <Image
@@ -40,7 +40,7 @@ export const onBoardingSlides: onBoardingSlidesTypes[] = [
       "Personalize your study plan with flexible timelines that suit you best",
   },
   {
-    color: "#42A5F5", // Bright sky blue
+    color: "#bce973", // Bright sky blue
     image: (
       <Image
         source={Three}
@@ -75,17 +75,17 @@ export const RIGHT_SNAP_POINTS = [NEXT, WIDTH - MARGIN_WIDTH];
 export const bannerData = [
   {
     image:
-      "https://res.cloudinary.com/dkg6jv4l0/image/upload/v1729365053/WhatsApp_Image_2024-09-02_at_2.07.32_PM_kb1mwe.jpg",
+      "https://images.unsplash.com/photo-1521804906057-1df8fdb718b7?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzB8fGZpdG5lc3MlMjBjbGFzc3xlbnwwfHwwfHx8MA%3D%3D",
     url: "https://react-native.becodemy.com",
   },
   {
     image:
-      "https://res.cloudinary.com/dwp4syk3r/image/upload/v1713574008/WhatsApp_Image_2024-02-29_at_2.00.10_AM_zpk4qe.jpg",
+      "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTl8fGZpdG5lc3MlMjBjbGFzc3xlbnwwfHwwfHx8MA%3D%3D",
     url: "https://youtu.be/BrrwtCt7d-Y",
   },
   {
     image:
-      "https://res.cloudinary.com/dkg6jv4l0/image/upload/v1723424082/WhatsApp_Image_2024-08-09_at_5.00.52_AM_wzokd1.jpg",
+      "https://images.unsplash.com/photo-1552196563-55cd4e45efb3?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTIyfHxmaXRuZXNzJTIwY2xhc3N8ZW58MHx8MHx8fDA%3D",
     url: "https://youtu.be/4aS7g8OYHbg",
   },
 ];

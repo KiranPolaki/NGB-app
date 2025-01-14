@@ -57,8 +57,8 @@ export default function _layout() {
             }
             return iconName;
           },
-          tabBarActiveTintColor: theme.dark ? "#19C964" : "#4A90E2",
-          tabBarInactiveTintColor: theme.dark ? "#fff" : "#8e8e93",
+          tabBarActiveTintColor: theme.dark ? "#bce973" : "#4A90E2",
+          tabBarInactiveTintColor: theme.dark ? "#8e8e93" : "#8e8e93",
           headerShown:
             route.name === "courses/index" || route.name === "resources/index"
               ? true
@@ -99,6 +99,7 @@ export default function _layout() {
           tabBarStyle: {
             position: IsIOS ? (theme.dark ? "absolute" : "static") : "absolute",
             borderTopLeftRadius: IsAndroid ? 0 : IsIPAD ? scale(20) : scale(35),
+            paddingTop: 10,
             borderTopRightRadius: IsAndroid
               ? 0
               : IsIPAD
