@@ -1,25 +1,27 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View, Text } from "react-native";
-import { Link } from "expo-router";
+import { View, Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import * as SecureStore from "expo-secure-store";
+import { Redirect } from "expo-router";
 
-export default function App() {
+const index = () => {
+  const [loggedInUser, setLoggedInUser] = useState(false);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const subscription = async () => {
+      const token = SecureStore.getItem("accessToken");
+      setLoggedInUser(token ? true : false);
+    };
+    subscription();
+  }, []);
   return (
-    <View style={styles.container}>
-      <Text style={{ color: "white", fontFamily: "SpaceMono" }}>Hello!</Text>
-      <StatusBar style="auto" />
-      <Link href="/profile" style={{ color: "blue" }}>
-        Go to profile
-      </Link>
-    </View>
+    <>
+      {loading ? (
+        <></>
+      ) : (
+        <Redirect href={!loggedInUser ? "./(routes)/onboarding" : "./(tabs)"} />
+      )}
+    </>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: "100%",
-    backgroundColor: "#000",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+export default index;
