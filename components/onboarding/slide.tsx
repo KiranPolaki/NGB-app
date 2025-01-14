@@ -225,6 +225,9 @@ const styles = StyleSheet.create({
   textContainer: {
     width: SCREEN_WIDTH,
     paddingHorizontal: verticalScale(25),
+    position: "relative",
+    top: verticalScale(250),
+    left: 0,
   },
   title: {
     fontSize: fontSizes.FONT30,
@@ -243,7 +246,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: verticalScale(35),
     position: "absolute",
-    bottom: verticalScale(150),
+    bottom: verticalScale(215),
     left: scale(22),
   },
   indicator: {
@@ -260,7 +263,7 @@ const styles = StyleSheet.create({
   },
   glassmorph: {
     width: WIDTH,
-    height: HEIGHT * 0.2,
+    height: HEIGHT * 0.28,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     overflow: "hidden",
