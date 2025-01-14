@@ -1,12 +1,6 @@
-import { View, Text } from "react-native";
+import ProfileScreen from "@/screens/profile/profile.screen";
 import React from "react";
 
-const index = () => {
-  return (
-    <View>
-      <Text>index</Text>
-    </View>
-  );
-};
-
-export default index;
+export default function Profile() {
+  return <ProfileScreen />;
+}

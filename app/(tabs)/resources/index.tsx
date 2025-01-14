@@ -1,12 +1,6 @@
-import { View, Text } from "react-native";
 import React from "react";
+import ResourcesScreen from "@/screens/resources/resources.screen";
 
-const index = () => {
-  return (
-    <View>
-      <Text>index</Text>
-    </View>
-  );
-};
-
-export default index;
+export default function Resources() {
+  return <ResourcesScreen />;
+}
