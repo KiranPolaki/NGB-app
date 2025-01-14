@@ -1,8 +1,8 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { useTheme } from "@/context/theme.context";
 // import useUser from "@/hooks/fetch/useUser";
-import { Tabs } from "expo-router";
+import { Tabs, useNavigation } from "expo-router";
 import { Feather, Ionicons, Octicons } from "@expo/vector-icons";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import { fontSizes, IsAndroid, IsIOS, IsIPAD } from "@/themes/app.constant";
@@ -11,6 +11,7 @@ import { BlurView } from "expo-blur";
 export default function _layout() {
   const { theme } = useTheme();
   // const { loader } = useUser();
+  const navigation = useNavigation();
 
   return (
     <Tabs
@@ -57,7 +58,7 @@ export default function _layout() {
             }
             return iconName;
           },
-          tabBarActiveTintColor: theme.dark ? "#bce973" : "#4A90E2",
+          tabBarActiveTintColor: theme.dark ? "#bce973" : "#95dd22",
           tabBarInactiveTintColor: theme.dark ? "#8e8e93" : "#8e8e93",
           headerShown:
             route.name === "courses/index" || route.name === "resources/index"
@@ -76,6 +77,16 @@ export default function _layout() {
             fontSize: fontSizes.FONT22,
             fontFamily: "Poppins_400Regular",
           },
+          // headerLeft: () => (
+          //   <TouchableOpacity onPress={() => navigation.goBack()}>
+          //     <Ionicons
+          //       name="arrow-back"
+          //       size={moderateScale(24)}
+          //       color={theme.dark ? "#fff" : "#000"}
+          //       style={{ marginLeft: scale(10) }}
+          //     />
+          //   </TouchableOpacity>
+          // ),
           headerBackgroundContainerStyle: {
             backgroundColor: theme.dark ? "#131313" : "#fff",
             shadowColor: theme.dark ? "#fff" : "#000",
@@ -165,7 +176,6 @@ export default function _layout() {
     >
       <Tabs.Screen name="index" />
       <Tabs.Screen name="courses/index" />
-      <Tabs.Screen name="resources/index" />
       <Tabs.Screen name="profile/index" />
     </Tabs>
   );

@@ -32,6 +32,7 @@ export default function CoursesScreen() {
                 fontSize: fontSizes.FONT35,
                 fontFamily: "Poppins_500Medium",
                 color: theme.dark ? "#fff" : "#000",
+                fontWeight: 600,
               }}
             >
               Popular
@@ -42,6 +43,7 @@ export default function CoursesScreen() {
                 fontSize: fontSizes.FONT35,
                 fontFamily: "Poppins_500Medium",
                 paddingLeft: scale(5),
+                fontWeight: 600,
               }}
             />
           </View>

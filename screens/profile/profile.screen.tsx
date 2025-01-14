@@ -32,6 +32,7 @@ import {
 import * as SecureStore from "expo-secure-store";
 import { router } from "expo-router";
 import * as WebBrowser from "expo-web-browser";
+import { BlurView } from "expo-blur";
 
 export default function ProfileScreen() {
   const { theme } = useTheme();
@@ -55,11 +56,11 @@ export default function ProfileScreen() {
       <LinearGradient
         colors={
           theme.dark
-            ? ["#121121", "#3c43485c", "#121121"]
-            : ["#6248FF", "#8673FC"]
+            ? ["#262626", "#262626", "#262626"]
+            : ["#aae34f", "#bce973"]
         }
-        start={theme.dark ? { x: 1, y: 1 } : { x: 0, y: 1 }}
-        end={theme.dark ? { x: 0, y: 1 } : { x: 0, y: 0 }}
+        start={theme.dark ? { x: 0.5, y: 0 } : { x: 0.5, y: 0 }}
+        end={theme.dark ? { x: 0.5, y: 1 } : { x: 0.5, y: 1 }}
         style={styles.header}
       >
         <StatusBar barStyle={"light-content"} />
@@ -74,12 +75,15 @@ export default function ProfileScreen() {
       </LinearGradient>
 
       {/* Profile wrapper */}
-      <View
+      <BlurView
+        intensity={theme.dark ? 70 : 80}
         style={[
           styles.profileWrapper,
           {
-            backgroundColor: theme.dark ? "#121121" : "#fff",
-            shadowOpacity: theme.dark ? 0.12 : 0.25,
+            borderTopLeftRadius: scale(20),
+            borderTopRightRadius: scale(20),
+            overflow: "hidden",
+            backgroundColor: "transparent",
           },
         ]}
       >
@@ -121,7 +125,7 @@ export default function ProfileScreen() {
             <Text style={styles.statLabel}>Certificates</Text>
           </LinearGradient>
         </View>
-      </View>
+      </BlurView>
 
       {/* Profile options */}
       <ScrollView
@@ -151,7 +155,7 @@ export default function ProfileScreen() {
               <Feather
                 name="book-open"
                 size={scale(21)}
-                color={theme.dark ? "#fff" : "#0047AB"}
+                color={theme.dark ? "#fff" : "#95dd22"}
               />
             </View>
             <View>
@@ -203,7 +207,7 @@ export default function ProfileScreen() {
               <MaterialIcons
                 name="leaderboard"
                 size={scale(23)}
-                color={theme.dark ? "#fff" : "#0047AB"}
+                color={theme.dark ? "#fff" : "#95dd22"}
               />
             </View>
             <View>
@@ -256,7 +260,7 @@ export default function ProfileScreen() {
               <MaterialCommunityIcons
                 name="message-alert-outline"
                 size={scale(22)}
-                color={theme.dark ? "#fff" : "#0047AB"}
+                color={theme.dark ? "#fff" : "#95dd22"}
               />
             </View>
             <View>
@@ -309,7 +313,7 @@ export default function ProfileScreen() {
               <FontAwesome
                 name="support"
                 size={scale(22)}
-                color={theme.dark ? "#fff" : "#0047AB"}
+                color={theme.dark ? "#fff" : "#95dd22"}
               />
             </View>
             <View>
@@ -362,7 +366,7 @@ export default function ProfileScreen() {
               <Ionicons
                 name="notifications"
                 size={scale(22)}
-                color={theme.dark ? "#fff" : "#0047AB"}
+                color={theme.dark ? "#fff" : "#95dd22"}
               />
             </View>
             <View>
@@ -415,7 +419,7 @@ export default function ProfileScreen() {
               <Ionicons
                 name="settings-sharp"
                 size={scale(23)}
-                color={theme.dark ? "#fff" : "#0047AB"}
+                color={theme.dark ? "#fff" : "#95dd22"}
               />
             </View>
             <View>
@@ -472,7 +476,7 @@ export default function ProfileScreen() {
               <MaterialIcons
                 name="policy"
                 size={scale(23)}
-                color={theme.dark ? "#fff" : "#0047AB"}
+                color={theme.dark ? "#fff" : "#95dd22"}
               />
             </View>
             <View>
@@ -525,7 +529,7 @@ export default function ProfileScreen() {
               <MaterialIcons
                 name="logout"
                 size={scale(23)}
-                color={theme.dark ? "#fff" : "#0047AB"}
+                color={theme.dark ? "#fff" : "#95dd22"}
               />
             </View>
             <View>

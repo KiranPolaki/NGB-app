@@ -62,6 +62,6 @@ const styles = StyleSheet.create({
     width: IsAndroid ? scale(20) : scale(18),
     height: IsAndroid ? scale(20) : scale(18),
     borderRadius: scale(11),
-    backgroundColor: "#6D55FE",
+    backgroundColor: "#95dd22",
   },
 });

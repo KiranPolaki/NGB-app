@@ -20,6 +20,7 @@ import {
 } from "@/themes/app.constant";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import { EvilIcons, Ionicons } from "@expo/vector-icons";
+import { BlurView } from "expo-blur";
 
 export default function WelcomeHeader() {
   const { theme } = useTheme();
@@ -27,14 +28,28 @@ export default function WelcomeHeader() {
   const [notificationLength, setnotificationLength] = useState(0);
 
   return (
-    <LinearGradient
-      colors={
-        theme.dark ? ["#262626", "#262626", "#262626"] : ["#75ABFC", "#0047AB"]
-      }
-      start={theme.dark ? { x: 0.5, y: 0 } : { x: 0.5, y: 0 }}
-      end={theme.dark ? { x: 0.5, y: 1 } : { x: 0.5, y: 1 }}
-      style={[styles.headerWrapper]}
+    <BlurView
+      intensity={theme.dark ? 70 : 80}
+      style={[
+        {
+          borderTopLeftRadius: scale(20),
+          borderTopRightRadius: scale(20),
+          overflow: "hidden",
+          backgroundColor: "transparent",
+        },
+        styles.headerWrapper,
+      ]}
     >
+      {/* <LinearGradient
+        colors={
+          theme.dark
+            ? ["#262626", "#262626", "#262626"]
+            : ["#aae34f", "#aae34f"]
+        }
+        start={theme.dark ? { x: 0.5, y: 0 } : { x: 0.5, y: 0 }}
+        end={theme.dark ? { x: 0.5, y: 1 } : { x: 0.5, y: 1 }}
+        style={[]}
+      > */}
       <StatusBar barStyle={"light-content"} />
       <View
         style={{
@@ -78,7 +93,7 @@ export default function WelcomeHeader() {
                 {
                   backgroundColor: theme.dark
                     ? "rgba(255, 255, 255, 0.2)"
-                    : "#004FAB",
+                    : "#95dd22",
                   // borderWidth: theme?.dark ? 1 : 0,
                   // borderColor: theme.dark ? "#fff" : "transparent",
                 },
@@ -131,11 +146,12 @@ export default function WelcomeHeader() {
           <EvilIcons
             name="search"
             size={IsIPAD ? scale(20) : scale(30)}
-            color={theme.dark ? "#95dd22" : "blue"}
+            color={theme.dark ? "#bce973" : "#95dd22"}
           />
         </Pressable>
       </View>
-    </LinearGradient>
+      {/* </LinearGradient> */}
+    </BlurView>
   );
 }
 
