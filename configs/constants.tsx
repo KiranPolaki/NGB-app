@@ -2,36 +2,36 @@
 import { IsIPAD } from "@/themes/app.constant";
 import { Dimensions, Image } from "react-native";
 import { scale, verticalScale } from "react-native-size-matters";
-import One from "@/assets/images/onboarding/1.png";
-import Two from "@/assets/images/onboarding/2.png";
-import Three from "@/assets/images/onboarding/3.png";
+import One from "@/assets/images/onboarding/1.jpg";
+import Two from "@/assets/images/onboarding/2.jpg";
+import Three from "@/assets/images/onboarding/3.jpg";
 
 export const onBoardingSlides: onBoardingSlidesTypes[] = [
   {
-    color: "#40E0D0",
+    color: "#0D47A1", // Deep navy blue
     title: "Explore",
     image: (
       <Image
         source={One}
         style={{
-          width: IsIPAD ? verticalScale(285) : verticalScale(320),
-          height: IsIPAD ? verticalScale(345) : verticalScale(330),
+          width: IsIPAD ? verticalScale(285) : verticalScale(330),
+          height: IsIPAD ? verticalScale(345) : verticalScale(335),
         }}
       />
     ),
-    secondTitle: "Our Community",
+    secondTitle: "",
     subTitle:
       "Find the perfect course to enhance your career prospects and skill set",
   },
   {
-    color: "#A7F893",
+    color: "#1976D2", // Medium electric blue
     title: "Set Your",
     image: (
       <Image
         source={Two}
         style={{
-          width: IsIPAD ? scale(285) : scale(320),
-          height: IsIPAD ? verticalScale(345) : verticalScale(330),
+          width: IsIPAD ? scale(285) : scale(350),
+          height: IsIPAD ? verticalScale(345) : verticalScale(335),
         }}
       />
     ),
@@ -40,13 +40,13 @@ export const onBoardingSlides: onBoardingSlidesTypes[] = [
       "Personalize your study plan with flexible timelines that suit you best",
   },
   {
-    color: "#FFC0CB",
+    color: "#42A5F5", // Bright sky blue
     image: (
       <Image
         source={Three}
         style={{
-          width: IsIPAD ? scale(285) : scale(320),
-          height: IsIPAD ? verticalScale(345) : verticalScale(330),
+          width: IsIPAD ? scale(285) : scale(350),
+          height: IsIPAD ? verticalScale(345) : verticalScale(335),
         }}
       />
     ),

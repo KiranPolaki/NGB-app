@@ -103,7 +103,7 @@ export default function Slide({
 
   const ContentView = () => (
     <View style={styles.container}>
-      <View>{slide.image}</View>
+      <View style={styles.imageContainer}>{slide.image}</View>
       <View>
         <View style={styles.textContainer}>
           <Text style={styles.title}>{slide.title}</Text>
@@ -214,8 +214,16 @@ const styles = StyleSheet.create({
     paddingTop: verticalScale(100),
     alignItems: "center",
   },
+  imageContainer: {
+    width: "50%",
+    height: "50%",
+    resizeMode: "cover", // Ensures the image covers the entire container
+    position: "absolute",
+    top: 0,
+    left: 0,
+  },
   textContainer: {
-    width: SCREEN_WIDTH * 1,
+    width: SCREEN_WIDTH,
     paddingHorizontal: verticalScale(25),
   },
   title: {
