@@ -19,7 +19,7 @@ import {
   windowWidth,
 } from "@/themes/app.constant";
 import GradiantText from "@/components/common/gradient.text";
-import { scale, verticalScale } from "react-native-size-matters";
+import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import SkeltonLoader from "@/utils/skelton";
 import CourseCard from "@/components/cards/CourseCard";
 import axios from "axios";
@@ -133,20 +133,23 @@ export default function CoursesScreen() {
   };
 
   const renderCourseItem = ({ item }: { item: any }) => (
-    <TouchableOpacity onPress={() => onPressCourse(item)}>
+    <TouchableOpacity onPress={() => onPressCourse(item)} activeOpacity={0.9}>
       <BlurView
-        intensity={theme.dark ? 70 : 80}
-        style={[
-          styles.card,
-          {
-            borderTopLeftRadius: scale(20),
-            borderTopRightRadius: scale(20),
-            overflow: "hidden",
-            backgroundColor: "transparent",
-          },
-        ]}
+        intensity={theme.dark ? 20 : 40}
+        tint={theme.dark ? "dark" : "light"}
+        style={styles.card}
       >
-        <Image source={{ uri: item.image }} style={styles.courseImage} />
+        <View style={styles.imageContainer}>
+          <Image
+            source={{ uri: item.image }}
+            style={styles.courseImage}
+            resizeMode="cover"
+          />
+          <TouchableOpacity style={styles.favoriteButton}>
+            <Feather name="heart" size={20} color="white" />
+          </TouchableOpacity>
+        </View>
+
         <View style={styles.courseDetails}>
           <Text style={styles.courseTitle}>{item.title}</Text>
           <Text style={styles.courseLevel}>
@@ -160,9 +163,6 @@ export default function CoursesScreen() {
             <Text style={styles.durationText}>{item.duration}</Text>
           </View>
         </View>
-        <TouchableOpacity style={styles.favoriteButton}>
-          <Feather name="heart" size={24} color={"white"} />
-        </TouchableOpacity>
       </BlurView>
     </TouchableOpacity>
   );
@@ -188,8 +188,6 @@ export default function CoursesScreen() {
           backgroundColor: theme.dark ? "#101010" : "#fff",
         },
         {
-          borderTopLeftRadius: scale(20),
-          borderTopRightRadius: scale(20),
           overflow: "hidden",
           backgroundColor: "transparent",
           paddingTop: IsHaveNotch
@@ -230,16 +228,6 @@ export default function CoursesScreen() {
             alignItems: "center",
           }}
         >
-          {/* <View
-            style={{
-              backgroundColor: "#bce973",
-              width: windowWidth(15),
-              height: windowWidth(15),
-              borderRadius: 100,
-              marginTop: verticalScale(-18),
-            }}
-          /> */}
-
           <Text
             style={{
               fontFamily: "Poppins_400Regular",
@@ -295,77 +283,69 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 16,
   },
-  searchContainer: {
-    flexDirection: "row",
-    marginBottom: 16,
-  },
-  searchInput: {
-    flex: 1,
-    height: 44,
-    borderRadius: 22,
-    paddingHorizontal: 16,
-    backgroundColor: "#F0F0F0",
-    marginRight: 8,
-  },
-  filterButton: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    // backgroundColor: ,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   card: {
-    flexDirection: "row",
-    backgroundColor: "#",
-    borderRadius: 12,
-    marginBottom: 16,
-    padding: 12,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    marginBottom: 20,
+    borderRadius: 24,
+    overflow: "hidden", // This is crucial for the BlurView effect
+    backgroundColor: "rgba(255, 255, 255, 0.1)", // Subtle background for glass effect
+  },
+  imageContainer: {
+    width: "100%",
+    height: IsIPAD ? moderateScale(220) : moderateScale(180),
+    borderRadius: 20,
+    overflow: "hidden", // Ensures image respects border radius
+    marginBottom: 8,
   },
   courseImage: {
-    width: 80,
-    height: 80,
-    borderRadius: 8,
+    width: "100%",
+    height: "100%",
+    borderRadius: 20,
   },
   courseDetails: {
-    flex: 1,
-    marginLeft: 12,
+    padding: 16,
   },
   courseTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    // color: theme.colors.dark,
-    marginBottom: 4,
+    fontSize: 18,
+    fontFamily: "Poppins_600SemiBold",
+    color: "#FFFFFF",
+    marginBottom: 8,
   },
   courseLevel: {
     fontSize: 14,
-    // color: theme.colors.gray,
-    marginBottom: 4,
+    fontFamily: "Poppins_400Regular",
+    color: "rgba(255, 255, 255, 0.8)",
+    marginBottom: 12,
   },
   courseStats: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
   },
   ratingContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginRight: 8,
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 12,
   },
   ratingText: {
-    marginLeft: 4,
+    marginLeft: 6,
     fontSize: 14,
-    // color: theme.colors.dark,
+    fontFamily: "Poppins_500Medium",
+    color: "#FFD700",
   },
   durationText: {
     fontSize: 14,
-    // color: theme.colors.gray,
+    fontFamily: "Poppins_400Regular",
+    color: "rgba(255, 255, 255, 0.7)",
   },
   favoriteButton: {
-    padding: 4,
+    position: "absolute",
+    top: 12,
+    right: 12,
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+    padding: 8,
+    borderRadius: 12,
   },
 });
