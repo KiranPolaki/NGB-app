@@ -49,7 +49,7 @@ export default function ProfileScreen() {
   return (
     <LinearGradient
       colors={
-        theme.dark ? ["#30400d", "#2A2D32", "#131313"] : ["#fff", "#f7f7f7"]
+        theme.dark ? ["#30400d", "#2c322a", "#121212"] : ["#fff", "#f7f7f7"]
       }
       start={{ x: 0, y: 0 }}
       end={{ x: 0, y: 1 }}

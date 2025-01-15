@@ -28,19 +28,10 @@ export default function _layout() {
                   color={color}
                 />
               );
-            } else if (route.name === "courses/index") {
+            } else if (route.name === "courses") {
               iconName = (
                 <Feather
                   name="book-open"
-                  size={moderateScale(24)}
-                  style={{ width: IsIPAD ? scale(20) : "auto" }}
-                  color={color}
-                />
-              );
-            } else if (route.name === "resources/index") {
-              iconName = (
-                <Ionicons
-                  name="document-text-outline"
                   size={moderateScale(24)}
                   style={{ width: IsIPAD ? scale(20) : "auto" }}
                   color={color}
@@ -60,12 +51,9 @@ export default function _layout() {
           },
           tabBarActiveTintColor: theme.dark ? "#bce973" : "#95dd22",
           tabBarInactiveTintColor: theme.dark ? "#8e8e93" : "#8e8e93",
-          headerShown:
-            route.name === "courses/index" || route.name === "resources/index"
-              ? true
-              : false,
+          headerShown: route.name === "resources/index" ? true : false,
           headerTitle:
-            route.name === "courses/index"
+            route.name === "courses"
               ? "Courses"
               : route.name === "resources/index"
               ? "Video Lessons"
@@ -175,7 +163,7 @@ export default function _layout() {
       }}
     >
       <Tabs.Screen name="index" />
-      <Tabs.Screen name="courses/index" />
+      <Tabs.Screen name="courses" />
       <Tabs.Screen name="profile/index" />
     </Tabs>
   );
