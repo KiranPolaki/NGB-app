@@ -5,8 +5,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  SafeAreaView,
-  Platform,
   StatusBar,
 } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
@@ -22,8 +20,8 @@ export default function CourseDetails() {
   const navigation = useNavigation();
   const route = useRoute();
   const insets = useSafeAreaInsets();
-
   const [activeTab, setActiveTab] = useState("Lessons");
+  const [expandedLesson, setExpandedLesson] = useState(null);
   const [course, setCourse] = useState({
     name: "Ultimate Strength Training Masterclass",
     description:
@@ -33,41 +31,52 @@ export default function CourseDetails() {
     rating: 4.8,
     price: 299,
     videoId: "b0fPciW_uco",
-    instructor: "Alex Strong",
+    instructor: {
+      name: "Alex Strong",
+      title: "Master Fitness Trainer & Sports Nutritionist",
+      experience: "15+ years",
+      description:
+        "Alex Strong is a certified strength training specialist with over 15 years of experience in professional athletics and fitness coaching. He has trained Olympic athletes and holds multiple certifications in sports nutrition and strength conditioning. His unique approach combines traditional strength training principles with modern scientific research.",
+      achievements: [
+        "Olympic Team Trainer 2016-2020",
+        "Author of 'Strength Science'",
+        "Featured in Men's Health",
+      ],
+    },
   });
 
   const lessons = [
-    { title: "Introduction to Strength Training", duration: "15:30 min" },
-    { title: "Proper Form and Technique Basics", duration: "25:45 min" },
-    { title: "Building Your Core Strength", duration: "40:20 min" },
-    { title: "Advanced Lifting Techniques", duration: "55:10 min" },
+    {
+      title: "Introduction to Strength Training",
+      duration: "15:30 min",
+      videoId: "abc123",
+      description:
+        "Learn the foundational principles of strength training and understand how to approach this comprehensive course. We'll cover safety basics, equipment needs, and what to expect from your journey.",
+    },
+    {
+      title: "Proper Form and Technique Basics",
+      duration: "25:45 min",
+      videoId: "def456",
+      description:
+        "Master the essential techniques that will form the backbone of your strength training journey. Focus on proper posture, breathing, and movement patterns to maximize results and prevent injuries.",
+    },
+    {
+      title: "Building Your Core Strength",
+      duration: "40:20 min",
+      videoId: "ghi789",
+      description:
+        "Discover how to develop a strong core foundation, essential for all strength training exercises. Learn progressive core strengthening techniques and stability exercises.",
+    },
+    {
+      title: "Advanced Lifting Techniques",
+      duration: "55:10 min",
+      videoId: "jkl012",
+      description:
+        "Take your training to the next level with advanced compound movements and specialized lifting techniques. Learn proper form for deadlifts, squats, and Olympic lifts.",
+    },
   ];
 
-  useEffect(() => {
-    // fetchData();
-  }, [route]);
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch(
-        "https://ngb-api.vercel.app/api/courses/" +
-          (Math.floor(Math.random() * 6) + 1)
-      );
-      const json = await response.json();
-      console.log(json);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  const onStateChange = useCallback((state: string) => {
-    if (state === "ended") {
-      // You can handle video end here
-    }
-  }, []);
-
   return (
-    // <SafeAreaView style={{ flex: 1 }}>
     <LinearGradient
       colors={
         theme.dark ? ["#30400d", "#2c322a", "#121212"] : ["#fff", "#f7f7f7"]
@@ -78,7 +87,7 @@ export default function CourseDetails() {
     >
       <StatusBar barStyle={theme.dark ? "light-content" : "dark-content"} />
 
-      {/* Header with glass effect */}
+      {/* Header */}
       <BlurView
         intensity={theme.dark ? 20 : 40}
         tint={theme.dark ? "dark" : "light"}
@@ -109,7 +118,7 @@ export default function CourseDetails() {
         <ScrollView
           contentContainerStyle={[
             styles.scrollContent,
-            { paddingBottom: insets.bottom + 100 }, // Added extra padding for bottom CTA
+            { paddingBottom: insets.bottom + 100 },
           ]}
         >
           {/* Video Player Card */}
@@ -123,7 +132,7 @@ export default function CourseDetails() {
                 height={200}
                 play={false}
                 videoId={course.videoId}
-                onChangeState={onStateChange}
+                onChangeState={() => {}}
               />
             </View>
           </BlurView>
@@ -183,63 +192,7 @@ export default function CourseDetails() {
             </View>
           </BlurView>
 
-          {/* Content Section */}
-          {/* <BlurView
-            intensity={theme.dark ? 20 : 40}
-            tint={theme.dark ? "dark" : "light"}
-            style={styles.contentCard}
-          >
-            <View style={styles.contentContainer}>
-              {activeTab === "Lessons" ? (
-                <View style={styles.lessonsContainer}>
-                  {lessons.map((lesson, index) => (
-                    <TouchableOpacity key={index} style={styles.lessonItem}>
-                      <View style={styles.lessonIcon}>
-                        <Ionicons name="play" size={16} color="#95dd22" />
-                      </View>
-                      <View style={styles.lessonInfo}>
-                        <Text
-                          style={[
-                            styles.lessonTitle,
-                            { color: theme.dark ? "#fff" : "#000" },
-                          ]}
-                        >
-                          {lesson.title}
-                        </Text>
-                        <Text
-                          style={[
-                            styles.lessonDuration,
-                            {
-                              color: theme.dark
-                                ? "rgba(255,255,255,0.6)"
-                                : "#666",
-                            },
-                          ]}
-                        >
-                          {lesson.duration}
-                        </Text>
-                      </View>
-                      <Ionicons
-                        name="chevron-forward"
-                        size={20}
-                        color={theme.dark ? "rgba(255,255,255,0.6)" : "#666"}
-                      />
-                    </TouchableOpacity>
-                  ))}
-                </View>
-              ) : (
-                <Text
-                  style={[
-                    styles.description,
-                    { color: theme.dark ? "rgba(255,255,255,0.7)" : "#666" },
-                  ]}
-                >
-                  {course.description}
-                </Text>
-              )}
-            </View>
-          </BlurView> */}
-
+          {/* Tabs Card */}
           <BlurView
             intensity={theme.dark ? 20 : 40}
             tint={theme.dark ? "dark" : "light"}
@@ -267,42 +220,71 @@ export default function CourseDetails() {
             {activeTab === "Lessons" ? (
               <View style={styles.lessonsContainer}>
                 {lessons.map((lesson, index) => (
-                  <TouchableOpacity key={index} style={styles.lessonItem}>
-                    <View style={styles.lessonIcon}>
-                      <Ionicons name="play" size={16} color="#95dd22" />
-                    </View>
-                    <View style={styles.lessonInfo}>
-                      <Text
-                        style={[
-                          styles.lessonTitle,
-                          { color: theme.dark ? "#fff" : "#000" },
-                        ]}
-                      >
-                        {lesson.title}
-                      </Text>
-                      <Text
-                        style={[
-                          styles.lessonDuration,
-                          {
-                            color: theme.dark
-                              ? "rgba(255,255,255,0.6)"
-                              : "#666",
-                          },
-                        ]}
-                      >
-                        {lesson.duration}
-                      </Text>
-                    </View>
-                    <Ionicons
-                      name="chevron-forward"
-                      size={20}
-                      color={theme.dark ? "rgba(255,255,255,0.6)" : "#666"}
-                    />
-                  </TouchableOpacity>
+                  <View key={index}>
+                    <TouchableOpacity
+                      style={styles.lessonItem}
+                      onPress={() =>
+                        setExpandedLesson(
+                          expandedLesson === index ? null : index
+                        )
+                      }
+                    >
+                      <View style={styles.lessonIcon}>
+                        <Ionicons name="play" size={16} color="#95dd22" />
+                      </View>
+                      <View style={styles.lessonInfo}>
+                        <Text
+                          style={[
+                            styles.lessonTitle,
+                            { color: theme.dark ? "#fff" : "#000" },
+                          ]}
+                        >
+                          {lesson.title}
+                        </Text>
+                        <Text
+                          style={[
+                            styles.lessonDuration,
+                            {
+                              color: theme.dark
+                                ? "rgba(255,255,255,0.6)"
+                                : "#666",
+                            },
+                          ]}
+                        >
+                          {lesson.duration}
+                        </Text>
+                      </View>
+                      <Ionicons
+                        name={
+                          expandedLesson === index
+                            ? "chevron-down"
+                            : "chevron-forward"
+                        }
+                        size={20}
+                        color={theme.dark ? "rgba(255,255,255,0.6)" : "#666"}
+                      />
+                    </TouchableOpacity>
+                    {expandedLesson === index && (
+                      <View style={styles.lessonDescription}>
+                        <Text
+                          style={[
+                            styles.lessonDescriptionText,
+                            {
+                              color: theme.dark
+                                ? "rgba(255,255,255,0.7)"
+                                : "#666",
+                            },
+                          ]}
+                        >
+                          {lesson.description}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
                 ))}
               </View>
             ) : (
-              <View style={{ padding: 5 }}>
+              <View style={styles.descriptionContainer}>
                 <Text
                   style={[
                     styles.description,
@@ -311,6 +293,90 @@ export default function CourseDetails() {
                 >
                   {course.description}
                 </Text>
+
+                <View style={styles.instructorSection}>
+                  <Text
+                    style={[
+                      styles.sectionTitle,
+                      { color: theme.dark ? "#fff" : "#000" },
+                    ]}
+                  >
+                    About the Instructor
+                  </Text>
+                  <View style={styles.instructorHeader}>
+                    <View style={styles.instructorAvatar}>
+                      <Text style={styles.avatarText}>
+                        {course.instructor.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")}
+                      </Text>
+                    </View>
+                    <View style={styles.instructorDetails}>
+                      <Text
+                        style={[
+                          styles.instructorName,
+                          { color: theme.dark ? "#fff" : "#000" },
+                        ]}
+                      >
+                        {course.instructor.name}
+                      </Text>
+                      <Text
+                        style={[
+                          styles.instructorTitle,
+                          {
+                            color: theme.dark
+                              ? "rgba(255,255,255,0.7)"
+                              : "#666",
+                          },
+                        ]}
+                      >
+                        {course.instructor.title}
+                      </Text>
+                      <Text
+                        style={[
+                          styles.instructorExperience,
+                          { color: theme.dark ? "#95dd22" : "#658717" },
+                        ]}
+                      >
+                        {course.instructor.experience} experience
+                      </Text>
+                    </View>
+                  </View>
+                  <Text
+                    style={[
+                      styles.instructorDescription,
+                      { color: theme.dark ? "rgba(255,255,255,0.7)" : "#666" },
+                    ]}
+                  >
+                    {course.instructor.description}
+                  </Text>
+                  <View style={styles.achievementsList}>
+                    {course.instructor.achievements.map(
+                      (achievement, index) => (
+                        <View key={index} style={styles.achievementItem}>
+                          <Ionicons
+                            name="checkmark-circle"
+                            size={16}
+                            color="#95dd22"
+                          />
+                          <Text
+                            style={[
+                              styles.achievementText,
+                              {
+                                color: theme.dark
+                                  ? "rgba(255,255,255,0.7)"
+                                  : "#666",
+                              },
+                            ]}
+                          >
+                            {achievement}
+                          </Text>
+                        </View>
+                      )
+                    )}
+                  </View>
+                </View>
               </View>
             )}
           </BlurView>
@@ -321,10 +387,7 @@ export default function CourseDetails() {
       <BlurView
         intensity={theme.dark ? 20 : 40}
         tint={theme.dark ? "dark" : "light"}
-        style={[
-          styles.bottomCTA,
-          { paddingBottom: insets.bottom + 16 }, // Added safe area padding
-        ]}
+        style={[styles.bottomCTA, { paddingBottom: insets.bottom + 16 }]}
       >
         <Text style={[styles.price, { color: theme.dark ? "#fff" : "#000" }]}>
           ${course.price}
@@ -334,7 +397,6 @@ export default function CourseDetails() {
         </TouchableOpacity>
       </BlurView>
     </LinearGradient>
-    // </SafeAreaView>
   );
 }
 
@@ -508,5 +570,82 @@ const styles = StyleSheet.create({
   activeTabText: {
     color: "#95dd22",
     fontFamily: "Poppins_600SemiBold",
+  },
+  descriptionContainer: {
+    padding: 16,
+    gap: 24,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontFamily: "Poppins_600SemiBold",
+    marginBottom: 16,
+  },
+  instructorSection: {
+    marginTop: 24,
+  },
+  instructorHeader: {
+    flexDirection: "row",
+    marginBottom: 16,
+  },
+  instructorAvatar: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: "#95dd22",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 16,
+  },
+  avatarText: {
+    color: "#000",
+    fontSize: 24,
+    fontFamily: "Poppins_600SemiBold",
+  },
+  instructorDetails: {
+    flex: 1,
+  },
+  instructorName: {
+    fontSize: 18,
+    fontFamily: "Poppins_600SemiBold",
+    marginBottom: 4,
+  },
+  instructorTitle: {
+    fontSize: 14,
+    fontFamily: "Poppins_400Regular",
+    marginBottom: 4,
+  },
+  instructorExperience: {
+    fontSize: 14,
+    fontFamily: "Poppins_500Medium",
+  },
+  instructorDescription: {
+    fontSize: 14,
+    lineHeight: 22,
+    fontFamily: "Poppins_400Regular",
+    marginBottom: 16,
+  },
+  achievementsList: {
+    gap: 8,
+  },
+  achievementItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  achievementText: {
+    fontSize: 14,
+    fontFamily: "Poppins_400Regular",
+  },
+  lessonDescription: {
+    padding: 16,
+    // backgroundColor: theme.dark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.05)",
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
+    marginTop: -8,
+  },
+  lessonDescriptionText: {
+    fontSize: 14,
+    lineHeight: 20,
+    fontFamily: "Poppins_400Regular",
   },
 });
