@@ -133,7 +133,12 @@ export default function CoursesScreen() {
   };
 
   const renderCourseItem = ({ item }: { item: any }) => (
-    <TouchableOpacity onPress={() => onPressCourse(item)} activeOpacity={0.9}>
+    <TouchableOpacity
+      onPress={() => {
+        router.push("/common/Dummy");
+      }}
+      activeOpacity={0.9}
+    >
       <BlurView
         intensity={theme.dark ? 20 : 40}
         tint={theme.dark ? "dark" : "light"}
@@ -306,6 +311,7 @@ const styles = StyleSheet.create({
   },
   courseTitle: {
     fontSize: 18,
+    fontWeight: 600,
     fontFamily: "Poppins_600SemiBold",
     color: "#FFFFFF",
     marginBottom: 8,

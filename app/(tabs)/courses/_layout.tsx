@@ -12,10 +12,6 @@ export default function CoursesLayout() {
         name="[courseId]"
         options={{ title: "Course Detail", headerShown: false }}
       />
-      <Stack.Screen
-        name="[courseId]/[chapterId]"
-        options={{ title: "Chapter Detail", headerShown: false }}
-      />
     </Stack>
   );
 }

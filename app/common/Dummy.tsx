@@ -44,7 +44,7 @@ export default function CourseDetails() {
   ];
 
   useEffect(() => {
-    fetchData();
+    // fetchData();
   }, [route]);
 
   const fetchData = async () => {
@@ -184,7 +184,7 @@ export default function CourseDetails() {
           </BlurView>
 
           {/* Content Section */}
-          <BlurView
+          {/* <BlurView
             intensity={theme.dark ? 20 : 40}
             tint={theme.dark ? "dark" : "light"}
             style={styles.contentCard}
@@ -238,6 +238,81 @@ export default function CourseDetails() {
                 </Text>
               )}
             </View>
+          </BlurView> */}
+
+          <BlurView
+            intensity={theme.dark ? 20 : 40}
+            tint={theme.dark ? "dark" : "light"}
+            style={styles.tabsCard}
+          >
+            <View style={styles.tabsContainer}>
+              {["Lessons", "Description"].map((tab) => (
+                <TouchableOpacity
+                  key={tab}
+                  style={[styles.tab, activeTab === tab && styles.activeTab]}
+                  onPress={() => setActiveTab(tab)}
+                >
+                  <Text
+                    style={[
+                      styles.tabText,
+                      { color: theme.dark ? "rgba(255,255,255,0.6)" : "#666" },
+                      activeTab === tab && styles.activeTabText,
+                    ]}
+                  >
+                    {tab}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+            {activeTab === "Lessons" ? (
+              <View style={styles.lessonsContainer}>
+                {lessons.map((lesson, index) => (
+                  <TouchableOpacity key={index} style={styles.lessonItem}>
+                    <View style={styles.lessonIcon}>
+                      <Ionicons name="play" size={16} color="#95dd22" />
+                    </View>
+                    <View style={styles.lessonInfo}>
+                      <Text
+                        style={[
+                          styles.lessonTitle,
+                          { color: theme.dark ? "#fff" : "#000" },
+                        ]}
+                      >
+                        {lesson.title}
+                      </Text>
+                      <Text
+                        style={[
+                          styles.lessonDuration,
+                          {
+                            color: theme.dark
+                              ? "rgba(255,255,255,0.6)"
+                              : "#666",
+                          },
+                        ]}
+                      >
+                        {lesson.duration}
+                      </Text>
+                    </View>
+                    <Ionicons
+                      name="chevron-forward"
+                      size={20}
+                      color={theme.dark ? "rgba(255,255,255,0.6)" : "#666"}
+                    />
+                  </TouchableOpacity>
+                ))}
+              </View>
+            ) : (
+              <View style={{ padding: 5 }}>
+                <Text
+                  style={[
+                    styles.description,
+                    { color: theme.dark ? "rgba(255,255,255,0.7)" : "#666" },
+                  ]}
+                >
+                  {course.description}
+                </Text>
+              </View>
+            )}
           </BlurView>
         </ScrollView>
       </View>
@@ -375,6 +450,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16,
     lineHeight: 24,
+
     fontFamily: "Poppins_400Regular",
   },
   bottomCTA: {
@@ -403,6 +479,34 @@ const styles = StyleSheet.create({
   enrollButtonText: {
     color: "#000",
     fontSize: 16,
+    fontFamily: "Poppins_600SemiBold",
+  },
+  tabsCard: {
+    borderRadius: 24,
+    padding: 24,
+    overflow: "hidden",
+    backgroundColor: "rgba(255,255,255,0.1)",
+  },
+  tabsContainer: {
+    flexDirection: "row",
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(255,255,255,0.1)",
+  },
+  tab: {
+    flex: 1,
+    paddingVertical: 12,
+    alignItems: "center",
+  },
+  activeTab: {
+    borderBottomWidth: 2,
+    borderBottomColor: "#95dd22",
+  },
+  tabText: {
+    fontSize: 16,
+    fontFamily: "Poppins_400Regular",
+  },
+  activeTabText: {
+    color: "#95dd22",
     fontFamily: "Poppins_600SemiBold",
   },
 });
