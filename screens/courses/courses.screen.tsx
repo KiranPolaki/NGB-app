@@ -110,7 +110,7 @@ export default function CoursesScreen() {
     //</SafeAreaView>
     <LinearGradient
       colors={
-        theme.dark ? ["#30400d", "#2c322a", "#121212"] : ["#fff", "#f7f7f7"]
+        theme.dark ? ["#3f350d", "#32322a", "#121212"] : ["#fff", "#f7f7f7"]
       }
       start={{ x: 0, y: 0 }}
       end={{ x: 0, y: 1 }}

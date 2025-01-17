@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   View,
   Text,
@@ -68,34 +68,20 @@ export default function CourseDetails() {
       },
     ],
   });
+  const [currentVideoId, setCurrentVideoId] = useState("");
+  const scrollViewRef = useRef(null);
+
+  const scrollToTop = () => {
+    scrollViewRef.current?.scrollTo({
+      y: 0,
+      animated: true,
+    });
+  };
 
   function getYouTubeVideoId(url) {
     const urlParams = new URLSearchParams(new URL(url).search);
     return urlParams.get("v");
   }
-
-  // name: "Ultimate Strength Training Masterclass",
-  //   description:
-  //     "Master the art of strength training with our comprehensive course. From proper form to advanced techniques, this course covers everything you need to build muscle, increase strength, and transform your physique.",
-  //   duration: "8h 45min",
-  //   lessons: 32,
-  //   rating: 4.8,
-  //   price: 299,
-  //   videoId: "b0fPciW_uco",
-  //   instructor: {
-  //     name: "Alex Strong",
-  //     title: "Master Fitness Trainer & Sports Nutritionist",
-  //     experience: "15+ years",
-  //     description:
-  //       "Alex Strong is a certified strength training specialist with over 15 years of experience in professional athletics and fitness coaching. He has trained Olympic athletes and holds multiple certifications in sports nutrition and strength conditioning. His unique approach combines traditional strength training principles with modern scientific research.",
-  //     achievements: [
-  //       "Olympic Team Trainer 2016-2020",
-  //       "Author of 'Strength Science'",
-  //       "Featured in Men's Health",
-  //     ],
-  //   },
-
-  // {"courseId":1,"title":"Angular","description":"Angular description","slug":"angular","isPublished":0,"createdAt":"2025-01-16 12:23:14","updatedAt":"2025-01-16 12:25:36","instructorId":"1","totalPrice":"12321.0","discountedPrice":"12321.0","thumbnail":"https://fastly.picsum.photos/id/89/536/354.jpg?hmac=Jy1ozDoxWE53y9fhC_6TpYOH-goFkok6mxfBh1-w_4w","introVideo":"https://www.youtube.com/watch?v=_1QAJaC6Xwc","totalDuration":null,"sections":[{"sectionId":1,"title":"Some new Section","description":"New desc","isPublished":0,"thumbnail":"https://fastly.picsum.photos/id/251/536/354.jpg?hmac=KhDUHBrHQSRJYTMoWlVdRR8y3ZhdEKtx4bsBxrEP3SA","totalDuration":"1","position":0,"chapters":[{"chapterId":1,"title":"State management","description":"description","slug":"state-management","type":"video","typeDetails":"Not Accessible","isPublished":0,"totalDuration":"0.00","content":"some text content","thumbnail":"https://fastly.picsum.photos/id/251/536/354.jpg?hmac=KhDUHBrHQSRJYTMoWlVdRR8y3ZhdEKtx4bsBxrEP3SA","position":0,"isFree":0}]}]}
 
   const courseId = (route.params as { courseId: string })?.courseId;
 
@@ -132,13 +118,17 @@ export default function CourseDetails() {
 
   useEffect(() => {
     getCourseDetails();
+    setCurrentVideoId(getYouTubeVideoId(course.introVideo));
   }, []);
 
   const getCourseDetails = async () => {
     const response = await axios.get(
       `https://ngb-api.vercel.app/api/learn/courses/1?userId=${courseId}`,
       {
-        headers: { Authorization: `Bearer ${process.env.AUTHORIZATION_TOKEN}` },
+        headers: {
+          //user token here
+          Authorization: `Bearer 4a3750bd-2b34-4d96-87ad-e9dda6fbd7d3`,
+        },
       }
     );
     const data = await response.data;
@@ -148,7 +138,7 @@ export default function CourseDetails() {
   return (
     <LinearGradient
       colors={
-        theme.dark ? ["#30400d", "#2c322a", "#121212"] : ["#fff", "#f7f7f7"]
+        theme.dark ? ["#3f350d", "#32322a", "#121212"] : ["#fff", "#f7f7f7"]
       }
       start={{ x: 0, y: 0 }}
       end={{ x: 0, y: 1 }}
@@ -156,9 +146,9 @@ export default function CourseDetails() {
     >
       <StatusBar barStyle={theme.dark ? "light-content" : "dark-content"} />
 
-      <BlurView
-        intensity={theme.dark ? 20 : 40}
-        tint={theme.dark ? "dark" : "light"}
+      <View
+        // intensity={theme.dark ? 20 : 40}
+        // tint={theme.dark ? "dark" : "light"}
         style={styles.header}
       >
         <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -168,11 +158,11 @@ export default function CourseDetails() {
             color={theme.dark ? "#fff" : "#000"}
           />
         </TouchableOpacity>
-        <Text
+        {/* <Text
           style={[styles.headerTitle, { color: theme.dark ? "#fff" : "#000" }]}
         >
           Course Overview
-        </Text>
+        </Text> */}
         {/* <TouchableOpacity>
           <Ionicons
             name="heart-outline"
@@ -180,7 +170,7 @@ export default function CourseDetails() {
             color={theme.dark ? "#fff" : "#000"}
           />
         </TouchableOpacity> */}
-      </BlurView>
+      </View>
 
       <View style={styles.scrollContainer}>
         <ScrollView
@@ -188,6 +178,7 @@ export default function CourseDetails() {
             styles.scrollContent,
             { paddingBottom: insets.bottom + 100 },
           ]}
+          ref={scrollViewRef}
         >
           <BlurView
             intensity={theme.dark ? 20 : 40}
@@ -198,7 +189,7 @@ export default function CourseDetails() {
               <YoutubePlayer
                 height={200}
                 play={false}
-                videoId={getYouTubeVideoId(course?.introVideo)}
+                videoId={currentVideoId}
                 onChangeState={() => {}}
               />
             </View>
@@ -286,7 +277,7 @@ export default function CourseDetails() {
             </View>
             {activeTab === "Lessons" ? (
               <View style={styles.lessonsContainer}>
-                {lessons.map((lesson, index) => (
+                {course.sections.map((lesson, index) => (
                   <View key={index}>
                     <TouchableOpacity
                       style={styles.lessonItem}
@@ -296,9 +287,9 @@ export default function CourseDetails() {
                         )
                       }
                     >
-                      <View style={styles.lessonIcon}>
+                      {/* <View style={styles.lessonIcon}>
                         <Ionicons name="play" size={16} color="#95dd22" />
-                      </View>
+                      </View> */}
                       <View style={styles.lessonInfo}>
                         <Text
                           style={[
@@ -318,7 +309,8 @@ export default function CourseDetails() {
                             },
                           ]}
                         >
-                          {lesson.duration}
+                          {/* TODO: send the time details in a format */}
+                          {lesson.totalDuration} min
                         </Text>
                       </View>
                       <Ionicons
@@ -333,18 +325,50 @@ export default function CourseDetails() {
                     </TouchableOpacity>
                     {expandedLesson === index && (
                       <View style={styles.lessonDescription}>
-                        <Text
-                          style={[
-                            styles.lessonDescriptionText,
-                            {
-                              color: theme.dark
-                                ? "rgba(255,255,255,0.7)"
-                                : "#666",
-                            },
-                          ]}
-                        >
-                          {lesson.description}
-                        </Text>
+                        {lesson.chapters.map((chapter) => {
+                          return (
+                            <TouchableOpacity
+                              style={styles.lessonItem}
+                              onPress={() => {
+                                setCurrentVideoId(
+                                  getYouTubeVideoId(chapter.typeDetails)
+                                );
+                                scrollToTop();
+                              }}
+                            >
+                              <View style={styles.lessonIcon}>
+                                <Ionicons
+                                  name="play"
+                                  size={16}
+                                  color="#95dd22"
+                                />
+                              </View>
+                              <View style={styles.lessonInfo}>
+                                <Text
+                                  style={[
+                                    styles.lessonTitle,
+                                    { color: theme.dark ? "#fff" : "#000" },
+                                  ]}
+                                >
+                                  {chapter.title}
+                                </Text>
+                                <Text
+                                  style={[
+                                    styles.lessonDuration,
+                                    {
+                                      color: theme.dark
+                                        ? "rgba(255,255,255,0.6)"
+                                        : "#666",
+                                    },
+                                  ]}
+                                >
+                                  {/* TODO: send the time details in a format */}
+                                  {chapter.totalDuration} min
+                                </Text>
+                              </View>
+                            </TouchableOpacity>
+                          );
+                        })}
                       </View>
                     )}
                   </View>
