@@ -23,7 +23,56 @@ export default function CourseDetails() {
   const insets = useSafeAreaInsets();
   const [activeTab, setActiveTab] = useState("Lessons");
   const [expandedLesson, setExpandedLesson] = useState(null);
-  const [course, setCourse] = useState();
+  const [course, setCourse] = useState({
+    courseId: 1,
+    title: "Angular",
+    description: "Angular description",
+    slug: "angular",
+    isPublished: 0,
+    createdAt: "2025-01-16 12:23:14",
+    updatedAt: "2025-01-16 12:25:36",
+    instructorId: "1",
+    totalPrice: "12321.0",
+    discountedPrice: "12321.0",
+    thumbnail:
+      "https://fastly.picsum.photos/id/89/536/354.jpg?hmac=Jy1ozDoxWE53y9fhC_6TpYOH-goFkok6mxfBh1-w_4w",
+    introVideo: "https://www.youtube.com/watch?v=_1QAJaC6Xwc",
+    totalDuration: null,
+    sections: [
+      {
+        sectionId: 1,
+        title: "Some new Section",
+        description: "New desc",
+        isPublished: 0,
+        thumbnail:
+          "https://fastly.picsum.photos/id/251/536/354.jpg?hmac=KhDUHBrHQSRJYTMoWlVdRR8y3ZhdEKtx4bsBxrEP3SA",
+        totalDuration: "1",
+        position: 0,
+        chapters: [
+          {
+            chapterId: 1,
+            title: "State management",
+            description: "description",
+            slug: "state-management",
+            type: "video",
+            typeDetails: "Not Accessible",
+            isPublished: 0,
+            totalDuration: "0.00",
+            content: "some text content",
+            thumbnail:
+              "https://fastly.picsum.photos/id/251/536/354.jpg?hmac=KhDUHBrHQSRJYTMoWlVdRR8y3ZhdEKtx4bsBxrEP3SA",
+            position: 0,
+            isFree: 0,
+          },
+        ],
+      },
+    ],
+  });
+
+  function getYouTubeVideoId(url) {
+    const urlParams = new URLSearchParams(new URL(url).search);
+    return urlParams.get("v");
+  }
 
   // name: "Ultimate Strength Training Masterclass",
   //   description:
@@ -97,327 +146,328 @@ export default function CourseDetails() {
   };
 
   return (
-    // <LinearGradient
-    //   colors={
-    //     theme.dark ? ["#30400d", "#2c322a", "#121212"] : ["#fff", "#f7f7f7"]
-    //   }
-    //   start={{ x: 0, y: 0 }}
-    //   end={{ x: 0, y: 1 }}
-    //   style={[styles.container, { paddingTop: insets.top }]}
-    // >
-    //   <StatusBar barStyle={theme.dark ? "light-content" : "dark-content"} />
+    <LinearGradient
+      colors={
+        theme.dark ? ["#30400d", "#2c322a", "#121212"] : ["#fff", "#f7f7f7"]
+      }
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+      style={[styles.container, { paddingTop: insets.top }]}
+    >
+      <StatusBar barStyle={theme.dark ? "light-content" : "dark-content"} />
 
-    //   {/* Header */}
-    //   <BlurView
-    //     intensity={theme.dark ? 20 : 40}
-    //     tint={theme.dark ? "dark" : "light"}
-    //     style={styles.header}
-    //   >
-    //     <TouchableOpacity onPress={() => navigation.goBack()}>
-    //       <Ionicons
-    //         name="arrow-back"
-    //         size={24}
-    //         color={theme.dark ? "#fff" : "#000"}
-    //       />
-    //     </TouchableOpacity>
-    //     <Text
-    //       style={[styles.headerTitle, { color: theme.dark ? "#fff" : "#000" }]}
-    //     >
-    //       Course Overview
-    //     </Text>
-    //     {/* <TouchableOpacity>
-    //       <Ionicons
-    //         name="heart-outline"
-    //         size={24}
-    //         color={theme.dark ? "#fff" : "#000"}
-    //       />
-    //     </TouchableOpacity> */}
-    //   </BlurView>
+      <BlurView
+        intensity={theme.dark ? 20 : 40}
+        tint={theme.dark ? "dark" : "light"}
+        style={styles.header}
+      >
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons
+            name="arrow-back"
+            size={24}
+            color={theme.dark ? "#fff" : "#000"}
+          />
+        </TouchableOpacity>
+        <Text
+          style={[styles.headerTitle, { color: theme.dark ? "#fff" : "#000" }]}
+        >
+          Course Overview
+        </Text>
+        {/* <TouchableOpacity>
+          <Ionicons
+            name="heart-outline"
+            size={24}
+            color={theme.dark ? "#fff" : "#000"}
+          />
+        </TouchableOpacity> */}
+      </BlurView>
 
-    //   <View style={styles.scrollContainer}>
-    //     <ScrollView
-    //       contentContainerStyle={[
-    //         styles.scrollContent,
-    //         { paddingBottom: insets.bottom + 100 },
-    //       ]}
-    //     >
-    //       {/* Video Player Card */}
-    //       <BlurView
-    //         intensity={theme.dark ? 20 : 40}
-    //         tint={theme.dark ? "dark" : "light"}
-    //         style={styles.videoCard}
-    //       >
-    //         <View style={styles.bannerContainer}>
-    //           <YoutubePlayer
-    //             height={200}
-    //             play={false}
-    //             videoId={course.videoId}
-    //             onChangeState={() => {}}
-    //           />
-    //         </View>
-    //       </BlurView>
+      <View style={styles.scrollContainer}>
+        <ScrollView
+          contentContainerStyle={[
+            styles.scrollContent,
+            { paddingBottom: insets.bottom + 100 },
+          ]}
+        >
+          <BlurView
+            intensity={theme.dark ? 20 : 40}
+            tint={theme.dark ? "dark" : "light"}
+            style={styles.videoCard}
+          >
+            <View style={styles.bannerContainer}>
+              <YoutubePlayer
+                height={200}
+                play={false}
+                videoId={getYouTubeVideoId(course?.introVideo)}
+                onChangeState={() => {}}
+              />
+            </View>
+          </BlurView>
 
-    //       {/* Course Info Card */}
-    //       <BlurView
-    //         intensity={theme.dark ? 20 : 40}
-    //         tint={theme.dark ? "dark" : "light"}
-    //         style={styles.courseInfoCard}
-    //       >
-    //         <View style={styles.courseInfo}>
-    //           <Text
-    //             style={[
-    //               styles.courseTitle,
-    //               { color: theme.dark ? "#fff" : "#000" },
-    //             ]}
-    //           >
-    //             {course.name}
-    //           </Text>
-    //           <View style={styles.courseMetaInfo}>
-    //             <Text
-    //               style={[
-    //                 styles.metaText,
-    //                 { color: theme.dark ? "rgba(255,255,255,0.7)" : "#666" },
-    //               ]}
-    //             >
-    //               {course.duration}
-    //             </Text>
-    //             <Text
-    //               style={[
-    //                 styles.metaText,
-    //                 { color: theme.dark ? "rgba(255,255,255,0.7)" : "#666" },
-    //               ]}
-    //             >
-    //               •
-    //             </Text>
-    //             <Text
-    //               style={[
-    //                 styles.metaText,
-    //                 { color: theme.dark ? "rgba(255,255,255,0.7)" : "#666" },
-    //               ]}
-    //             >
-    //               {course.lessons} lessons
-    //             </Text>
-    //             <View style={styles.ratingContainer}>
-    //               <Ionicons name="star" size={16} color="#FFD700" />
-    //               <Text
-    //                 style={[
-    //                   styles.ratingText,
-    //                   { color: theme.dark ? "#FFD700" : "#000" },
-    //                 ]}
-    //               >
-    //                 {course.rating}
-    //               </Text>
-    //             </View>
-    //           </View>
-    //         </View>
-    //       </BlurView>
+          <BlurView
+            intensity={theme.dark ? 20 : 40}
+            tint={theme.dark ? "dark" : "light"}
+            style={styles.courseInfoCard}
+          >
+            <View style={styles.courseInfo}>
+              <Text
+                style={[
+                  styles.courseTitle,
+                  { color: theme.dark ? "#fff" : "#000" },
+                ]}
+              >
+                {course?.title}
+              </Text>
+              <View style={styles.courseMetaInfo}>
+                <Text
+                  style={[
+                    styles.metaText,
+                    { color: theme.dark ? "rgba(255,255,255,0.7)" : "#666" },
+                  ]}
+                >
+                  {course?.totalDuration}
+                </Text>
+                <Text
+                  style={[
+                    styles.metaText,
+                    { color: theme.dark ? "rgba(255,255,255,0.7)" : "#666" },
+                  ]}
+                >
+                  •
+                </Text>
+                <Text
+                  style={[
+                    styles.metaText,
+                    { color: theme.dark ? "rgba(255,255,255,0.7)" : "#666" },
+                  ]}
+                >
+                  {course.sections.length} lessons
+                </Text>
+                <View style={styles.ratingContainer}>
+                  <Ionicons name="star" size={16} color="#FFD700" />
+                  <Text
+                    style={[
+                      styles.ratingText,
+                      { color: theme.dark ? "#FFD700" : "#000" },
+                    ]}
+                  >
+                    4.3
+                    {/* {course.rating} */}
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </BlurView>
 
-    //       {/* Tabs Card */}
-    //       <BlurView
-    //         intensity={theme.dark ? 20 : 40}
-    //         tint={theme.dark ? "dark" : "light"}
-    //         style={styles.tabsCard}
-    //       >
-    //         <View style={styles.tabsContainer}>
-    //           {["Lessons", "Description"].map((tab) => (
-    //             <TouchableOpacity
-    //               key={tab}
-    //               style={[styles.tab, activeTab === tab && styles.activeTab]}
-    //               onPress={() => setActiveTab(tab)}
-    //             >
-    //               <Text
-    //                 style={[
-    //                   styles.tabText,
-    //                   { color: theme.dark ? "rgba(255,255,255,0.6)" : "#666" },
-    //                   activeTab === tab && styles.activeTabText,
-    //                 ]}
-    //               >
-    //                 {tab}
-    //               </Text>
-    //             </TouchableOpacity>
-    //           ))}
-    //         </View>
-    //         {activeTab === "Lessons" ? (
-    //           <View style={styles.lessonsContainer}>
-    //             {lessons.map((lesson, index) => (
-    //               <View key={index}>
-    //                 <TouchableOpacity
-    //                   style={styles.lessonItem}
-    //                   onPress={() =>
-    //                     setExpandedLesson(
-    //                       expandedLesson === index ? null : index
-    //                     )
-    //                   }
-    //                 >
-    //                   <View style={styles.lessonIcon}>
-    //                     <Ionicons name="play" size={16} color="#95dd22" />
-    //                   </View>
-    //                   <View style={styles.lessonInfo}>
-    //                     <Text
-    //                       style={[
-    //                         styles.lessonTitle,
-    //                         { color: theme.dark ? "#fff" : "#000" },
-    //                       ]}
-    //                     >
-    //                       {lesson.title}
-    //                     </Text>
-    //                     <Text
-    //                       style={[
-    //                         styles.lessonDuration,
-    //                         {
-    //                           color: theme.dark
-    //                             ? "rgba(255,255,255,0.6)"
-    //                             : "#666",
-    //                         },
-    //                       ]}
-    //                     >
-    //                       {lesson.duration}
-    //                     </Text>
-    //                   </View>
-    //                   <Ionicons
-    //                     name={
-    //                       expandedLesson === index
-    //                         ? "chevron-down"
-    //                         : "chevron-forward"
-    //                     }
-    //                     size={20}
-    //                     color={theme.dark ? "rgba(255,255,255,0.6)" : "#666"}
-    //                   />
-    //                 </TouchableOpacity>
-    //                 {expandedLesson === index && (
-    //                   <View style={styles.lessonDescription}>
-    //                     <Text
-    //                       style={[
-    //                         styles.lessonDescriptionText,
-    //                         {
-    //                           color: theme.dark
-    //                             ? "rgba(255,255,255,0.7)"
-    //                             : "#666",
-    //                         },
-    //                       ]}
-    //                     >
-    //                       {lesson.description}
-    //                     </Text>
-    //                   </View>
-    //                 )}
-    //               </View>
-    //             ))}
-    //           </View>
-    //         ) : (
-    //           <View style={styles.descriptionContainer}>
-    //             <Text
-    //               style={[
-    //                 styles.description,
-    //                 { color: theme.dark ? "rgba(255,255,255,0.7)" : "#666" },
-    //               ]}
-    //             >
-    //               {course.description}
-    //             </Text>
+          {/* Tabs Card */}
+          <BlurView
+            intensity={theme.dark ? 20 : 40}
+            tint={theme.dark ? "dark" : "light"}
+            style={styles.tabsCard}
+          >
+            <View style={styles.tabsContainer}>
+              {["Lessons", "Description"].map((tab) => (
+                <TouchableOpacity
+                  key={tab}
+                  style={[styles.tab, activeTab === tab && styles.activeTab]}
+                  onPress={() => setActiveTab(tab)}
+                >
+                  <Text
+                    style={[
+                      styles.tabText,
+                      { color: theme.dark ? "rgba(255,255,255,0.6)" : "#666" },
+                      activeTab === tab && styles.activeTabText,
+                    ]}
+                  >
+                    {tab}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+            {activeTab === "Lessons" ? (
+              <View style={styles.lessonsContainer}>
+                {lessons.map((lesson, index) => (
+                  <View key={index}>
+                    <TouchableOpacity
+                      style={styles.lessonItem}
+                      onPress={() =>
+                        setExpandedLesson(
+                          expandedLesson === index ? null : index
+                        )
+                      }
+                    >
+                      <View style={styles.lessonIcon}>
+                        <Ionicons name="play" size={16} color="#95dd22" />
+                      </View>
+                      <View style={styles.lessonInfo}>
+                        <Text
+                          style={[
+                            styles.lessonTitle,
+                            { color: theme.dark ? "#fff" : "#000" },
+                          ]}
+                        >
+                          {lesson.title}
+                        </Text>
+                        <Text
+                          style={[
+                            styles.lessonDuration,
+                            {
+                              color: theme.dark
+                                ? "rgba(255,255,255,0.6)"
+                                : "#666",
+                            },
+                          ]}
+                        >
+                          {lesson.duration}
+                        </Text>
+                      </View>
+                      <Ionicons
+                        name={
+                          expandedLesson === index
+                            ? "chevron-down"
+                            : "chevron-forward"
+                        }
+                        size={20}
+                        color={theme.dark ? "rgba(255,255,255,0.6)" : "#666"}
+                      />
+                    </TouchableOpacity>
+                    {expandedLesson === index && (
+                      <View style={styles.lessonDescription}>
+                        <Text
+                          style={[
+                            styles.lessonDescriptionText,
+                            {
+                              color: theme.dark
+                                ? "rgba(255,255,255,0.7)"
+                                : "#666",
+                            },
+                          ]}
+                        >
+                          {lesson.description}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
+                ))}
+              </View>
+            ) : (
+              <View style={styles.descriptionContainer}>
+                <Text
+                  style={[
+                    styles.description,
+                    { color: theme.dark ? "rgba(255,255,255,0.7)" : "#666" },
+                  ]}
+                >
+                  {course.description}
+                </Text>
 
-    //             <View style={styles.instructorSection}>
-    //               <Text
-    //                 style={[
-    //                   styles.sectionTitle,
-    //                   { color: theme.dark ? "#fff" : "#000" },
-    //                 ]}
-    //               >
-    //                 About the Instructor
-    //               </Text>
-    //               <View style={styles.instructorHeader}>
-    //                 <View style={styles.instructorAvatar}>
-    //                   <Text style={styles.avatarText}>
-    //                     {course.instructor.name
-    //                       .split(" ")
-    //                       .map((n) => n[0])
-    //                       .join("")}
-    //                   </Text>
-    //                 </View>
-    //                 <View style={styles.instructorDetails}>
-    //                   <Text
-    //                     style={[
-    //                       styles.instructorName,
-    //                       { color: theme.dark ? "#fff" : "#000" },
-    //                     ]}
-    //                   >
-    //                     {course.instructor.name}
-    //                   </Text>
-    //                   <Text
-    //                     style={[
-    //                       styles.instructorTitle,
-    //                       {
-    //                         color: theme.dark
-    //                           ? "rgba(255,255,255,0.7)"
-    //                           : "#666",
-    //                       },
-    //                     ]}
-    //                   >
-    //                     {course.instructor.title}
-    //                   </Text>
-    //                   <Text
-    //                     style={[
-    //                       styles.instructorExperience,
-    //                       { color: theme.dark ? "#95dd22" : "#658717" },
-    //                     ]}
-    //                   >
-    //                     {course.instructor.experience} experience
-    //                   </Text>
-    //                 </View>
-    //               </View>
-    //               <Text
-    //                 style={[
-    //                   styles.instructorDescription,
-    //                   { color: theme.dark ? "rgba(255,255,255,0.7)" : "#666" },
-    //                 ]}
-    //               >
-    //                 {course.instructor.description}
-    //               </Text>
-    //               <View style={styles.achievementsList}>
-    //                 {course.instructor.achievements.map(
-    //                   (achievement, index) => (
-    //                     <View key={index} style={styles.achievementItem}>
-    //                       <Ionicons
-    //                         name="checkmark-circle"
-    //                         size={16}
-    //                         color="#95dd22"
-    //                       />
-    //                       <Text
-    //                         style={[
-    //                           styles.achievementText,
-    //                           {
-    //                             color: theme.dark
-    //                               ? "rgba(255,255,255,0.7)"
-    //                               : "#666",
-    //                           },
-    //                         ]}
-    //                       >
-    //                         {achievement}
-    //                       </Text>
-    //                     </View>
-    //                   )
-    //                 )}
-    //               </View>
-    //             </View>
-    //           </View>
-    //         )}
-    //       </BlurView>
-    //     </ScrollView>
-    //   </View>
+                <View style={styles.instructorSection}>
+                  <Text
+                    style={[
+                      styles.sectionTitle,
+                      { color: theme.dark ? "#fff" : "#000" },
+                    ]}
+                  >
+                    About the Instructor
+                  </Text>
+                  <View style={styles.instructorHeader}>
+                    <View style={styles.instructorAvatar}>
+                      <Text style={styles.avatarText}>
+                        {/* {course.instructor.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")} */}
+                      </Text>
+                    </View>
+                    <View style={styles.instructorDetails}>
+                      <Text
+                        style={[
+                          styles.instructorName,
+                          { color: theme.dark ? "#fff" : "#000" },
+                        ]}
+                      >
+                        {/* {course.instructor.name} */}
+                        Naween
+                      </Text>
+                      <Text
+                        style={[
+                          styles.instructorTitle,
+                          {
+                            color: theme.dark
+                              ? "rgba(255,255,255,0.7)"
+                              : "#666",
+                          },
+                        ]}
+                      >
+                        {/* {course.instructor.title} */}
+                        Golden Boy
+                      </Text>
+                      <Text
+                        style={[
+                          styles.instructorExperience,
+                          { color: theme.dark ? "#95dd22" : "#658717" },
+                        ]}
+                      >
+                        {/* {course.instructor.experience} experience */}2
+                        experience
+                      </Text>
+                    </View>
+                  </View>
+                  <Text
+                    style={[
+                      styles.instructorDescription,
+                      { color: theme.dark ? "rgba(255,255,255,0.7)" : "#666" },
+                    ]}
+                  >
+                    {/* {course.instructor.description} */}
+                    He is a famous influencer
+                  </Text>
+                  <View style={styles.achievementsList}>
+                    {/* {course.instructor.achievements.map(
+                      (achievement, index) => (
+                        <View key={index} style={styles.achievementItem}>
+                          <Ionicons
+                            name="checkmark-circle"
+                            size={16}
+                            color="#95dd22"
+                          />
+                          <Text
+                            style={[
+                              styles.achievementText,
+                              {
+                                color: theme.dark
+                                  ? "rgba(255,255,255,0.7)"
+                                  : "#666",
+                              },
+                            ]}
+                          >
+                            {achievement}
+                          </Text>
+                        </View>
+                      )
+                    )} */}
+                  </View>
+                </View>
+              </View>
+            )}
+          </BlurView>
+        </ScrollView>
+      </View>
 
-    //   {/* Bottom CTA */}
-    //   <BlurView
-    //     intensity={theme.dark ? 20 : 40}
-    //     tint={theme.dark ? "dark" : "light"}
-    //     style={[styles.bottomCTA, { paddingBottom: insets.bottom + 16 }]}
-    //   >
-    //     <Text style={[styles.price, { color: theme.dark ? "#fff" : "#000" }]}>
-    //       ${course.price}
-    //     </Text>
-    //     <TouchableOpacity style={styles.enrollButton}>
-    //       <Text style={styles.enrollButtonText}>Enroll Now</Text>
-    //     </TouchableOpacity>
-    //   </BlurView>
-    // </LinearGradient>
-    <></>
+      {/* Bottom CTA */}
+      <BlurView
+        intensity={theme.dark ? 20 : 40}
+        tint={theme.dark ? "dark" : "light"}
+        style={[styles.bottomCTA, { paddingBottom: insets.bottom + 16 }]}
+      >
+        <Text style={[styles.price, { color: theme.dark ? "#fff" : "#000" }]}>
+          ₹{course.totalPrice}
+        </Text>
+        <TouchableOpacity style={styles.enrollButton}>
+          <Text style={styles.enrollButtonText}>Enroll Now</Text>
+        </TouchableOpacity>
+      </BlurView>
+    </LinearGradient>
   );
 }
 
