@@ -33,6 +33,7 @@ export default function CoursesScreen() {
   const { theme } = useTheme();
   const bottomTabBarHeight = useBottomTabBarHeight();
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(true);
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
@@ -41,90 +42,14 @@ export default function CoursesScreen() {
 
   const fetchData = async () => {
     try {
-      const gymCourses = [
-        {
-          id: "gym1",
-          title: "Beginner's Strength Training",
-          desc: "Learn the basics of weightlifting and strength training",
-          image:
-            "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-          level: "Beginner",
-          chCount: 12,
-          rating: 4.8,
-          duration: "4h 30min",
-        },
-        {
-          id: "gym2",
-          title: "HIIT Cardio Workout",
-          desc: "High-intensity interval training for maximum calorie burn",
-          image:
-            "https://images.unsplash.com/photo-1549576490-b0b4831ef60a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-          level: "Intermediate",
-          chCount: 8,
-          rating: 4.9,
-          duration: "3h 15min",
-        },
-        {
-          id: "gym3",
-          title: "Yoga for Flexibility",
-          desc: "Improve your flexibility and balance with yoga",
-          image:
-            "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHx8&auto=format&fit=crop&w=1520&q=80",
-          level: "All Levels",
-          chCount: 10,
-          rating: 4.7,
-          duration: "5h 45min",
-        },
-        {
-          id: "gym4",
-          title: "Advanced Powerlifting",
-          desc: "Take your strength to the next level with advanced powerlifting techniques",
-          image:
-            "https://images.unsplash.com/photo-1579758629937-036021eb4203?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-          level: "Advanced",
-          chCount: 15,
-          rating: 4.9,
-          duration: "6h 20min",
-        },
-        {
-          id: "gym5",
-          title: "Functional Training Basics",
-          desc: "Enhance your everyday movement with functional training",
-          image:
-            "https://images.unsplash.com/photo-1571019613914-85f342c6a6f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-          level: "Beginner",
-          chCount: 9,
-          rating: 4.6,
-          duration: "2h 50min",
-        },
-        {
-          id: "gym6",
-          title: "Core Strength Mastery",
-          desc: "Build a solid core to improve balance and stability",
-          image:
-            "https://images.unsplash.com/photo-1554284126-44f636a72427?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-          level: "Intermediate",
-          chCount: 7,
-          rating: 4.8,
-          duration: "3h 10min",
-        },
-        {
-          id: "gym7",
-          title: "Meditation and Relaxation",
-          desc: "Unwind and refresh with guided meditation sessions",
-          image:
-            "https://images.unsplash.com/photo-1523662175815-16a2e22eb0c5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-          level: "All Levels",
-          chCount: 5,
-          rating: 4.5,
-          duration: "2h 30min",
-        },
-      ];
-      setCourses(gymCourses);
+      const response = await axios.get(
+        "https://ngb-api.vercel.app/api/learn/courses?userId=1"
+      );
+      setCourses(response.data.courses);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
-      setLoading(false);
+      // setLoading(true);
     }
   };
 
@@ -135,8 +60,12 @@ export default function CoursesScreen() {
   const renderCourseItem = ({ item }: { item: any }) => (
     <TouchableOpacity
       onPress={() => {
-        router.push("/common/Dummy");
+        router.push({
+          pathname: "/common/CourseDetails",
+          params: { courseId: item.courseId },
+        });
       }}
+      key={item.courseId}
       activeOpacity={0.9}
     >
       <BlurView
@@ -146,26 +75,25 @@ export default function CoursesScreen() {
       >
         <View style={styles.imageContainer}>
           <Image
-            source={{ uri: item.image }}
+            source={{ uri: item?.thumbnail }}
             style={styles.courseImage}
             resizeMode="cover"
           />
-          <TouchableOpacity style={styles.favoriteButton}>
+          {/* <TouchableOpacity style={styles.favoriteButton}>
             <Feather name="heart" size={20} color="white" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
-
         <View style={styles.courseDetails}>
-          <Text style={styles.courseTitle}>{item.title}</Text>
-          <Text style={styles.courseLevel}>
-            {item.level} · {item.chCount} lessons
-          </Text>
+          <Text style={styles.courseTitle}>{item?.title}</Text>
+          {/* <Text style={styles.courseLevel}>
+            {item?.level} · {item?.chCount} lessons
+          </Text> */}
           <View style={styles.courseStats}>
-            <View style={styles.ratingContainer}>
+            {/* <View style={styles.ratingContainer}>
               <Feather name="star" size={14} color="#FFD700" />
               <Text style={styles.ratingText}>{item.rating}</Text>
-            </View>
-            <Text style={styles.durationText}>{item.duration}</Text>
+            </View> */}
+            <Text style={styles.durationText}>{item?.totalDuration}</Text>
           </View>
         </View>
       </BlurView>
@@ -259,10 +187,13 @@ export default function CoursesScreen() {
       </View>
 
       {loading ? (
-        <View>
-          <SkeltonLoader />
-          <SkeltonLoader />
-        </View>
+        <>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <SkeltonLoader />
+            <SkeltonLoader />
+            <SkeltonLoader />
+          </ScrollView>
+        </>
       ) : (
         <FlatList
           data={courses}
@@ -291,7 +222,7 @@ const styles = StyleSheet.create({
   card: {
     marginBottom: 20,
     borderRadius: 24,
-    overflow: "hidden", // This is crucial for the BlurView effect
+    overflow: "hidden",
     backgroundColor: "rgba(255, 255, 255, 0.1)", // Subtle background for glass effect
   },
   imageContainer: {
