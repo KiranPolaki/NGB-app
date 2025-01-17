@@ -15,6 +15,51 @@ import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import axios from "axios";
+import CoursePlayer from "@/components/learn/CoursePlayer";
+
+interface Chapter {
+  chapterId: number;
+  title: string;
+  description: string;
+  slug: string;
+  type: string;
+  typeDetails: string;
+  isPublished: number;
+  totalDuration: string;
+  content: string;
+  thumbnail: string;
+  position: number;
+  isFree: number;
+}
+
+interface Section {
+  sectionId: number;
+  title: string;
+  description: string;
+  isPublished: number;
+  thumbnail: string;
+  totalDuration: string;
+  position: number;
+  chapters: Chapter[];
+}
+
+interface Course {
+  courseId: number;
+  title: string;
+  description: string;
+  slug: string;
+  isPublished: number;
+  createdAt: string;
+  updatedAt: string;
+  instructorId: string;
+  totalPrice: string;
+  discountedPrice: string;
+  thumbnail: string;
+  introVideo: string;
+  isEnrolled: boolean;
+  totalDuration: string | null;
+  sections: Section[];
+}
 
 export default function CourseDetails() {
   const { theme } = useTheme();
@@ -23,51 +68,7 @@ export default function CourseDetails() {
   const insets = useSafeAreaInsets();
   const [activeTab, setActiveTab] = useState("Lessons");
   const [expandedLesson, setExpandedLesson] = useState(null);
-  const [course, setCourse] = useState({
-    courseId: 1,
-    title: "Angular",
-    description: "Angular description",
-    slug: "angular",
-    isPublished: 0,
-    createdAt: "2025-01-16 12:23:14",
-    updatedAt: "2025-01-16 12:25:36",
-    instructorId: "1",
-    totalPrice: "12321.0",
-    discountedPrice: "12321.0",
-    thumbnail:
-      "https://fastly.picsum.photos/id/89/536/354.jpg?hmac=Jy1ozDoxWE53y9fhC_6TpYOH-goFkok6mxfBh1-w_4w",
-    introVideo: "https://www.youtube.com/watch?v=_1QAJaC6Xwc",
-    totalDuration: null,
-    sections: [
-      {
-        sectionId: 1,
-        title: "Some new Section",
-        description: "New desc",
-        isPublished: 0,
-        thumbnail:
-          "https://fastly.picsum.photos/id/251/536/354.jpg?hmac=KhDUHBrHQSRJYTMoWlVdRR8y3ZhdEKtx4bsBxrEP3SA",
-        totalDuration: "1",
-        position: 0,
-        chapters: [
-          {
-            chapterId: 1,
-            title: "State management",
-            description: "description",
-            slug: "state-management",
-            type: "video",
-            typeDetails: "Not Accessible",
-            isPublished: 0,
-            totalDuration: "0.00",
-            content: "some text content",
-            thumbnail:
-              "https://fastly.picsum.photos/id/251/536/354.jpg?hmac=KhDUHBrHQSRJYTMoWlVdRR8y3ZhdEKtx4bsBxrEP3SA",
-            position: 0,
-            isFree: 0,
-          },
-        ],
-      },
-    ],
-  });
+  const [course, setCourse] = useState<Course>();
   const [currentVideoId, setCurrentVideoId] = useState("");
   const scrollViewRef = useRef(null);
 
@@ -79,61 +80,48 @@ export default function CourseDetails() {
   };
 
   function getYouTubeVideoId(url) {
-    const urlParams = new URLSearchParams(new URL(url).search);
-    return urlParams.get("v");
+    if (url !== "Not Accessible") {
+      const urlParams = new URLSearchParams(new URL(url).search);
+      return urlParams.get("v");
+    }
   }
 
   const courseId = (route.params as { courseId: string })?.courseId;
 
-  const lessons = [
-    {
-      title: "Introduction to Strength Training",
-      duration: "15:30 min",
-      videoId: "abc123",
-      description:
-        "Learn the foundational principles of strength training and understand how to approach this comprehensive course. We'll cover safety basics, equipment needs, and what to expect from your journey.",
-    },
-    {
-      title: "Proper Form and Technique Basics",
-      duration: "25:45 min",
-      videoId: "def456",
-      description:
-        "Master the essential techniques that will form the backbone of your strength training journey. Focus on proper posture, breathing, and movement patterns to maximize results and prevent injuries.",
-    },
-    {
-      title: "Building Your Core Strength",
-      duration: "40:20 min",
-      videoId: "ghi789",
-      description:
-        "Discover how to develop a strong core foundation, essential for all strength training exercises. Learn progressive core strengthening techniques and stability exercises.",
-    },
-    {
-      title: "Advanced Lifting Techniques",
-      duration: "55:10 min",
-      videoId: "jkl012",
-      description:
-        "Take your training to the next level with advanced compound movements and specialized lifting techniques. Learn proper form for deadlifts, squats, and Olympic lifts.",
-    },
-  ];
-
   useEffect(() => {
     getCourseDetails();
-    setCurrentVideoId(getYouTubeVideoId(course.introVideo));
+    // setCurrentVideoId(getYouTubeVideoId(course.introVideo));
   }, []);
 
+  useEffect(() => {
+    if (course?.introVideo) {
+      setCurrentVideoId(getYouTubeVideoId(course.introVideo));
+    }
+  }, [course]);
+
   const getCourseDetails = async () => {
-    const response = await axios.get(
-      `https://ngb-api.vercel.app/api/learn/courses/1?userId=${courseId}`,
-      {
-        headers: {
-          //user token here
-          Authorization: `Bearer 4a3750bd-2b34-4d96-87ad-e9dda6fbd7d3`,
-        },
-      }
-    );
-    const data = await response.data;
-    setCourse(data);
+    try {
+      const response = await axios.get(
+        `https://ngb-api.vercel.app/api/learn/courses/${courseId}`,
+        {
+          headers: {
+            Authorization: `Bearer a5551d25-e117-4aee-a7c7-4382139b013`,
+          },
+        }
+      );
+      setCourse(response.data);
+    } catch (error) {
+      console.error("Error fetching course details:", error);
+    }
   };
+
+  if (!course) {
+    return (
+      <View style={styles.container}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
 
   return (
     <LinearGradient
@@ -186,11 +174,10 @@ export default function CourseDetails() {
             style={styles.videoCard}
           >
             <View style={styles.bannerContainer}>
-              <YoutubePlayer
-                height={200}
-                play={false}
+              <CoursePlayer
                 videoId={currentVideoId}
-                onChangeState={() => {}}
+                theme={theme}
+                enrolled={course.isEnrolled}
               />
             </View>
           </BlurView>
@@ -232,7 +219,7 @@ export default function CourseDetails() {
                     { color: theme.dark ? "rgba(255,255,255,0.7)" : "#666" },
                   ]}
                 >
-                  {course.sections.length} lessons
+                  {course.sections?.length} lessons
                 </Text>
                 <View style={styles.ratingContainer}>
                   <Ionicons name="star" size={16} color="#FFD700" />
@@ -287,9 +274,6 @@ export default function CourseDetails() {
                         )
                       }
                     >
-                      {/* <View style={styles.lessonIcon}>
-                        <Ionicons name="play" size={16} color="#95dd22" />
-                      </View> */}
                       <View style={styles.lessonInfo}>
                         <Text
                           style={[
@@ -488,14 +472,20 @@ export default function CourseDetails() {
           ₹{course.totalPrice}
         </Text>
         <TouchableOpacity style={styles.enrollButton}>
-          <Text style={styles.enrollButtonText}>Enroll Now</Text>
+          <Text style={styles.enrollButtonText}>Buy Now</Text>
         </TouchableOpacity>
       </BlurView>
     </LinearGradient>
+    // <></>
   );
 }
 
 const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   container: {
     flex: 1,
   },
@@ -667,8 +657,8 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins_600SemiBold",
   },
   descriptionContainer: {
-    padding: 16,
-    gap: 24,
+    // padding: 16,
+    gap: 12,
   },
   sectionTitle: {
     fontSize: 18,
