@@ -1,6 +1,5 @@
 import {
   Image,
-  Linking,
   Pressable,
   SafeAreaView,
   ScrollView,
@@ -12,8 +11,6 @@ import {
 } from "react-native";
 import React from "react";
 import { useTheme } from "@/context/theme.context";
-// import useUser from "@/hooks/fetch/useUser";
-// import useUserData from "@/hooks/useUserData";
 import { LinearGradient } from "expo-linear-gradient";
 import { scale, verticalScale } from "react-native-size-matters";
 import {
@@ -39,8 +36,6 @@ import { DarkGoldBackground, LightBackground } from "@/themes/theme.constants";
 
 export default function ProfileScreen() {
   const { theme } = useTheme();
-  // const { user, loader } = useUser();
-  // const { name, email, avatar } = useUserData();
 
   const logoutHandler = async () => {
     await SecureStore.deleteItemAsync("accessToken");
@@ -83,7 +78,6 @@ export default function ProfileScreen() {
         </SafeAreaView>
       </BlurView>
 
-      {/* Profile wrapper */}
       <BlurView
         intensity={theme.dark ? 70 : 80}
         style={[
@@ -97,9 +91,6 @@ export default function ProfileScreen() {
         ]}
       >
         <View style={{ flexDirection: "row" }}>
-          {/* {avatar && (
-            <Image source={{ uri: avatar }} style={styles.profileImage} />
-          )} */}
           <View style={styles.profileSection}>
             <View>
               <Image
@@ -131,29 +122,8 @@ export default function ProfileScreen() {
             </View>
           </View>
         </View>
-        {/* <View style={styles.statsContainer}>
-          <LinearGradient
-            style={styles.statBox}
-            colors={["#95dd22", "#95dd22"]}
-            start={{ x: 0, y: 1 }}
-            end={{ x: 1, y: 0 }}
-          >
-            <Text style={styles.statNumber}>1</Text>
-            <Text style={styles.statLabel}>Enrolled</Text>
-          </LinearGradient>
-          <LinearGradient
-            style={styles.statBox}
-            colors={["#95dd22", "#95dd22"]}
-            start={{ x: 0, y: 1 }}
-            end={{ x: 1, y: 0 }}
-          >
-            <Text style={styles.statNumber}>0</Text>
-            <Text style={styles.statLabel}>Certificates</Text>
-          </LinearGradient>
-        </View> */}
       </BlurView>
 
-      {/* Profile options */}
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{ padding: scale(20) }}

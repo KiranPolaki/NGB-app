@@ -10,7 +10,6 @@ import {
 import React, { useEffect, useState } from "react";
 import { useTheme } from "@/context/theme.context";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
-import { SafeAreaView } from "react-native-safe-area-context";
 import {
   fontSizes,
   IsHaveNotch,
@@ -21,10 +20,8 @@ import {
 import GradiantText from "@/components/common/gradient.text";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import SkeltonLoader from "@/utils/skelton";
-import CourseCard from "@/components/cards/CourseCard";
 import axios from "axios";
 import { FlatList } from "react-native";
-import { Feather } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
@@ -61,7 +58,7 @@ export default function CoursesScreen() {
     <TouchableOpacity
       onPress={() => {
         router.push({
-          pathname: "/common/CourseDetails",
+          pathname: "/common/courseDetails",
           params: { courseId: item.courseId },
         });
       }}
