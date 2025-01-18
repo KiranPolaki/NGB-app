@@ -11,7 +11,6 @@ import YoutubePlayer from "react-native-youtube-iframe";
 import { LinearGradient } from "expo-linear-gradient";
 
 const CoursePlayer = ({ videoId, theme, enrolled, introVideo }) => {
-  console.log(videoId);
   if (videoId !== introVideo && !enrolled) {
     if (videoId === "Not Accessible" || videoId === undefined) {
       return (

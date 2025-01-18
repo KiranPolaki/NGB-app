@@ -25,7 +25,6 @@ export default function CourseContent({
       ); // API URL
       const json = await response.json(); // Parse the response as JSON
       //setCourseList(json.courses);  // Set the fetched data
-      console.log(json);
       setCourseCh(json.chapters);
     } catch (error) {
       console.error("Error fetching data:", error); // Handle any error
@@ -106,7 +105,6 @@ export default function CourseContent({
 
   useEffect(() => {
     fetchData();
-    console.log("userProgress", userProgress);
   }, []);
 
   // const checkUserProgress=(contentId)=>{

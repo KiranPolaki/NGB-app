@@ -54,7 +54,6 @@ export default function CourseDetails() {
           (Math.floor(Math.random() * 6) + 1)
       );
       const json = await response.json();
-      console.log(json);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
