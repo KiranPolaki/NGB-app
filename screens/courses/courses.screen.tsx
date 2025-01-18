@@ -58,7 +58,7 @@ export default function CoursesScreen() {
     <TouchableOpacity
       onPress={() => {
         router.push({
-          pathname: "/common/courseDetails",
+          pathname: "/common/CourseDetails",
           params: { courseId: item.courseId },
         });
       }}
