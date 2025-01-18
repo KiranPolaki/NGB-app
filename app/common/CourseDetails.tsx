@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
-import YoutubePlayer from "react-native-youtube-iframe";
 import { useTheme } from "@/context/theme.context";
 import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
