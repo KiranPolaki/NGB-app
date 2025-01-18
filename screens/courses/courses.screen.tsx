@@ -65,7 +65,7 @@ export default function CoursesScreen() {
           params: { courseId: item.courseId },
         });
       }}
-      key={item.courseId}
+      key={`${item.courseId}-${item.courseTitle}`}
       activeOpacity={0.9}
     >
       <BlurView

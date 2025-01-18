@@ -105,7 +105,7 @@ export default function CourseDetails() {
         `https://ngb-api.vercel.app/api/learn/courses/${courseId}`,
         {
           headers: {
-            Authorization: `Bearer a5551d25-e117-4aee-a7c7-4382139b013`,
+            Authorization: `Bearer a5551d25-e117-4aee-a7c7-4382139b013a`,
           },
         }
       );
@@ -177,7 +177,9 @@ export default function CourseDetails() {
               <CoursePlayer
                 videoId={currentVideoId}
                 theme={theme}
-                enrolled={course.isEnrolled}
+                // enrolled={course.isEnrolled}
+                enrolled={true}
+                introVideo={getYouTubeVideoId(course.introVideo)}
               />
             </View>
           </BlurView>
@@ -319,6 +321,7 @@ export default function CourseDetails() {
                                 );
                                 scrollToTop();
                               }}
+                              key={chapter.chapterId}
                             >
                               <View style={styles.lessonIcon}>
                                 <Ionicons

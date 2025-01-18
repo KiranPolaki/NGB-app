@@ -10,33 +10,35 @@ import { BlurView } from "expo-blur";
 import YoutubePlayer from "react-native-youtube-iframe";
 import { LinearGradient } from "expo-linear-gradient";
 
-const CoursePlayer = ({ videoId, theme, enrolled }) => {
+const CoursePlayer = ({ videoId, theme, enrolled, introVideo }) => {
   console.log(videoId);
-  if (videoId === "Not Accessible" || videoId === undefined) {
-    return (
-      <View style={styles.container}>
-        <BlurView
-          intensity={theme.dark ? 30 : 50}
-          tint={theme.dark ? "dark" : "light"}
-          style={styles.blurContainer}
-        >
-          <LinearGradient
-            colors={
-              theme.dark
-                ? ["rgba(149,221,34,0.8)", "rgba(149,221,34,0.6)"]
-                : ["rgba(149,221,34,0.9)", "rgba(149,221,34,0.7)"]
-            }
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.buyNowButton}
+  if (videoId !== introVideo && !enrolled) {
+    if (videoId === "Not Accessible" || videoId === undefined) {
+      return (
+        <View style={styles.container}>
+          <BlurView
+            intensity={theme.dark ? 30 : 50}
+            tint={theme.dark ? "dark" : "light"}
+            style={styles.blurContainer}
           >
-            <TouchableOpacity style={styles.buttonContent}>
-              <Text style={styles.buyNowText}>Buy Now to Unlock ✨</Text>
-            </TouchableOpacity>
-          </LinearGradient>
-        </BlurView>
-      </View>
-    );
+            <LinearGradient
+              colors={
+                theme.dark
+                  ? ["rgba(149,221,34,0.8)", "rgba(149,221,34,0.6)"]
+                  : ["rgba(149,221,34,0.9)", "rgba(149,221,34,0.7)"]
+              }
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={styles.buyNowButton}
+            >
+              <TouchableOpacity style={styles.buttonContent}>
+                <Text style={styles.buyNowText}>Buy Now to Unlock ✨</Text>
+              </TouchableOpacity>
+            </LinearGradient>
+          </BlurView>
+        </View>
+      );
+    }
   }
 
   return (
