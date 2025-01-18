@@ -5,6 +5,7 @@ import { useTheme } from "@/context/theme.context";
 import WelcomeHeader from "@/components/home/welcome.header";
 import HomeBanner from "@/components/home/home.banner";
 import { fontSizes, windowHeight, windowWidth } from "@/themes/app.constant";
+import { DarkGoldBackground, LightBackground } from "@/themes/theme.constants";
 import { scale, verticalScale } from "react-native-size-matters";
 import GradiantText from "@/components/common/gradient.text";
 import SkeltonLoader from "@/utils/skelton";
@@ -16,9 +17,7 @@ export default function HomeScreen() {
   return (
     <>
       <LinearGradient
-        colors={
-          theme.dark ? ["#3f350d", "#32322a", "#121212"] : ["#fff", "#f7f7f7"]
-        }
+        colors={theme.dark ? DarkGoldBackground : LightBackground}
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
         style={{

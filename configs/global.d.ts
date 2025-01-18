@@ -97,3 +97,5 @@ type CourseType = {
   createdAt: any;
   updatedAt: any;
 };
+
+type ThemeColorType = [string, string, ...string[]];

@@ -16,6 +16,7 @@ import { BlurView } from "expo-blur";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import axios from "axios";
 import CoursePlayer from "@/components/learn/CoursePlayer";
+import { DarkGoldBackground, LightBackground } from "@/themes/theme.constants";
 
 interface Chapter {
   chapterId: number;
@@ -125,9 +126,7 @@ export default function CourseDetails() {
 
   return (
     <LinearGradient
-      colors={
-        theme.dark ? ["#3f350d", "#32322a", "#121212"] : ["#fff", "#f7f7f7"]
-      }
+      colors={theme.dark ? DarkGoldBackground : LightBackground}
       start={{ x: 0, y: 0 }}
       end={{ x: 0, y: 1 }}
       style={[styles.container, { paddingTop: insets.top }]}

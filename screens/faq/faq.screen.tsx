@@ -15,6 +15,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { fontSizes } from "@/themes/app.constant";
 import IconFour from "@/assets/svgs/support-center/four";
 import { FAQData } from "@/configs/constants";
+import { DarkGoldBackground, LightBackground } from "@/themes/theme.constants";
 
 export default function FAQScreen() {
   const { theme } = useTheme();
@@ -27,7 +28,7 @@ export default function FAQScreen() {
   return (
     <View style={{ flex: 1, backgroundColor: theme.dark ? "#101010" : "#fff" }}>
       <LinearGradient
-        colors={!theme.dark ? ["#FAE0BC", "#FAE0BC"] : ["#8673FC", "#8673FC"]}
+        colors={!theme.dark ? DarkGoldBackground : LightBackground}
         style={{
           height: verticalScale(200),
           borderBottomLeftRadius: scale(35),
