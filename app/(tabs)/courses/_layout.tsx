@@ -8,10 +8,6 @@ export default function CoursesLayout() {
         name="index"
         options={{ title: "courses", headerShown: false }}
       />
-      <Stack.Screen
-        name="[courseId]"
-        options={{ title: "Course Detail", headerShown: false }}
-      />
     </Stack>
   );
 }

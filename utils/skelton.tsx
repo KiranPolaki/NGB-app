@@ -15,7 +15,7 @@ export default function SkeltonLoader() {
         type: "timing",
       }}
       style={[styles.container, styles.padded]}
-      animate={{ backgroundColor: theme.dark ? 'transparent' : "#fff" }}
+      animate={{ backgroundColor: theme.dark ? "transparent" : "#fff" }}
     >
       {/* <Spacer /> */}
       <Skeleton

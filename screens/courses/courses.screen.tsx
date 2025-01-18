@@ -50,7 +50,6 @@ export default function CoursesScreen() {
       setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
-      // setLoading(true);
     }
   };
 
@@ -215,7 +214,7 @@ function onPressCourse(item: any): void {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 16,
+    paddingHorizontal: 0,
     paddingTop: 16,
   },
   card: {
